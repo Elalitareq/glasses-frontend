@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+
 import "./App.css";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import Layout from "./components/layout";
@@ -10,9 +10,12 @@ import SupliersPage from "./pages/suppliers";
 import UserPage from "./pages/users";
 import ProductsPage from "./pages/products";
 import SalesPage from "./pages/sales";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
+    <>
+    <div><Toaster   position="bottom-right"/></div>
     <BrowserRouter>
       <AuthProvider
         authType={"localstorage"}
@@ -43,6 +46,7 @@ function App() {
         </Routes>
       </AuthProvider>
     </BrowserRouter>
+    </>
   );
 }
 

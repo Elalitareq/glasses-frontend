@@ -5,3 +5,13 @@
 .gg{
   color: rgb(70, 146, 156) ;
 }
+*{
+  box-sizing: border-box;
+}
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #FCA600;
+}

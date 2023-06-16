@@ -5,6 +5,11 @@ import Layout from "./components/layout";
 import Login from "./pages/login";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
 import Dashboard from "./pages/dashboard";
+import CustomersPage from "./pages/customers";
+import SupliersPage from "./pages/suppliers";
+import UserPage from "./pages/users";
+import ProductsPage from "./pages/products";
+import SalesPage from "./pages/sales";
 
 function App() {
   return (
@@ -27,6 +32,11 @@ function App() {
             }
           >
             <Route path="/" element={<Dashboard />} />
+            <Route path="/customers" element={<CustomersPage/>} />
+            <Route path="/suppliers" element={<SupliersPage/>} />
+            <Route path="/users" element={<UserPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/sales" element={<SalesPage />} />
           </Route>
 
           <Route path="/login" element={<Login />} />

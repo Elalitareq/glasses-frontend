@@ -16,8 +16,9 @@ export function MyCombobox() {
         try {
             const response = await fetch('http://localhost:8000/api/customer'
               );
+              const data = await response.json();
+              console.log(data)
      
-          console.log(response);
           } catch (error) {
             
             console.log('Error sending data:', error);

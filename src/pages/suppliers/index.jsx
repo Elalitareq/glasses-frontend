@@ -1,8 +1,10 @@
 import React from 'react'
+import { AddSupplier } from '../../components/formSupplier/add'
+import { EditSupplier } from '../../components/formSupplier/edit'
 
 const SupliersPage = () => {
   return (
-    <div>SupliersPage</div>
+    <div><AddSupplier/><EditSupplier/></div>
   )
 }
 

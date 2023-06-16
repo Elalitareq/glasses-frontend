@@ -93,7 +93,7 @@ toast.success("Customer added successfully",{style: {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
-                  for="email"
+                 htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Company Name
@@ -110,7 +110,7 @@ toast.success("Customer added successfully",{style: {
               </div>
               <div>
                 <label
-                  for="email"
+                 htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Email
@@ -127,7 +127,7 @@ toast.success("Customer added successfully",{style: {
               </div>
               <div>
                 <label
-                  for="password"
+                 htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Address

@@ -20,7 +20,7 @@ export function MyCombobox() {
               console.log(data)
      
           } catch (error) {
-            
+  
             console.log('Error sending data:', error);
           }
       }

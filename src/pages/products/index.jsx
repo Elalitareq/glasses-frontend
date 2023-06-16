@@ -1,9 +1,10 @@
 import React from 'react'
-import { AddProduct } from '../../components/addProduct/add'
+import { AddProduct } from '../../components/formProduct/add'
+import { EditProduct } from '../../components/formProduct/edit'
 
 const ProductsPage = () => {
   return (
-    <div><AddProduct/></div>
+    <div><AddProduct/><EditProduct/></div>
   )
 }
 

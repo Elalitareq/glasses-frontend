@@ -1,5 +1,7 @@
 import React from 'react'
-import { AddForm } from '../../components/addCustomer/add'
+import { Delete } from '../../components/delete/delete'
+import { AddForm } from '../../components/formCustomer/add'
+import { EditForm } from '../../components/formCustomer/edit'
 
 const CustomersPage = () => {
   return (
@@ -7,6 +9,8 @@ const CustomersPage = () => {
     <div>
     
       <AddForm/>
+      <EditForm/>
+      <Delete title="customer" url="customer" id="648b0eb2b9fb8794abf9d5fd"/>
       </div>
   )
 }

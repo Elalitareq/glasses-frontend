@@ -51,7 +51,7 @@ export function Delete(props) {
      {open&& <div
         id="popup-modal"
         tabIndex="-1"
-        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 "
+        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 bg-[#00000090] "
 
       >
         <div className="relative w-full max-w-md max-h-full">

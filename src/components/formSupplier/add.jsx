@@ -67,7 +67,7 @@ export function AddSupplier() {
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50  "
+        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 bg-[#00000090]  "
       >
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-70">
           <button

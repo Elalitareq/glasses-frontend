@@ -59,7 +59,7 @@ toast.success("Customer added successfully",{style: {
             type="button"
             className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
             data-modal-hide="authentication-modal"
-            onClick={setOpen(false)}
+          onClick={() => setOpen(false)}
           >
             <svg
               aria-hidden="true"

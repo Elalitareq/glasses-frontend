@@ -1,23 +1,20 @@
 import { useEffect, useState } from 'react'
 import { Combobox } from '@headlessui/react'
 
-const people = [
-  'Wade Cooper',
-  'Arlene McCoy',
-  'Devon Webb',
-  'Tom Cook',
-  'Tanya Fox',
-  'Hellen Schmidt',
-]
+
 
 export function MyCombobox() {
+  const [people, setPeople] = useState([]);
+
     useEffect(()=>{
       const fetchData=async()=>{
         try {
-            const response = await fetch(`${process.env.REACT_APP_URL}/customer`
+            const response = await fetch(`${process.env.REACT_APP_URL}/customer/all`
               );
               const data = await response.json();
-              console.log(data)
+              console.log(data.message)
+              
+              setPeople(data.message)
      
           } catch (error) {
   
@@ -26,26 +23,31 @@ export function MyCombobox() {
       }
       fetchData()
     },[])
-  const [selectedPerson, setSelectedPerson] = useState(people[0])
+
+
+
+  const [selectedPerson, setSelectedPerson] = useState('')
   const [query, setQuery] = useState('')
 
   const filteredPeople =
-    query === ''
-      ? people
-      : people.filter((person) => {
-          return person.toLowerCase().includes(query.toLowerCase())
-        })
+  query === ''
+    ? people
+    : people.filter((person) => {
+        return person.company_name.toLowerCase().includes(query.toLowerCase());
+      });
+
 
   return (
     <Combobox value={selectedPerson} onChange={setSelectedPerson}>
-      <Combobox.Input onChange={(event) => setQuery(event.target.value)} />
+      <Combobox.Input onChange={(event) => setQuery(event.target.value)} placeholder="Enter a Company Name"  className="border border-gray-300 px-2 py-1 rounded"/>
       <Combobox.Options>
-        {filteredPeople.map((person) => (
-          <Combobox.Option key={person} value={person}>
-            {person}
-          </Combobox.Option>
-        ))}
-      </Combobox.Options>
+  {filteredPeople.map((person) => (
+    <Combobox.Option key={person._id} value={person.company_name}   className="cursor-pointer">
+      {person.company_name}
+    </Combobox.Option>
+  ))}
+</Combobox.Options>
+
     </Combobox>
   )
 }

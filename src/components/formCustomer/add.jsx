@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 export function AddForm() {
-    const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({});
   const openModal = () => {
     const modal = document.getElementById("authentication-modal");
     modal.classList.remove("hidden");
@@ -26,25 +26,29 @@ export function AddForm() {
     event.preventDefault();
     try {
       const response = await fetch(`${process.env.REACT_APP_URL}/customer`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-          },
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formValues),
       });
-toast.success("Customer added successfully",{style: {
-    borderRadius: '10px',
-    background: '#374151',
-    color: '#fff',
-  },})
-    console.log(response);
+      toast.success("Customer added successfully", {
+        style: {
+          borderRadius: "10px",
+          background: "#374151",
+          color: "#fff",
+        },
+      });
+      console.log(response);
     } catch (error) {
-        toast.error("Try again",{style: {
-            borderRadius: '10px',
-            background: '#374151',
-            color: '#fff',
-          },})
-      console.log('Error sending data:', error);
+      toast.error("Try again", {
+        style: {
+          borderRadius: "10px",
+          background: "#374151",
+          color: "#fff",
+        },
+      });
+      console.log("Error sending data:", error);
     }
     closeModal();
   };
@@ -62,7 +66,7 @@ toast.success("Customer added successfully",{style: {
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50  hidden"
+        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50  "
       >
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-70">
           <button
@@ -93,7 +97,7 @@ toast.success("Customer added successfully",{style: {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
-                 htmlFor="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Company Name
@@ -110,7 +114,7 @@ toast.success("Customer added successfully",{style: {
               </div>
               <div>
                 <label
-                 htmlFor="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Email
@@ -127,7 +131,7 @@ toast.success("Customer added successfully",{style: {
               </div>
               <div>
                 <label
-                 htmlFor="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Address

@@ -2,18 +2,9 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 export function EditForm() {
-    const [formValues, setFormValues] = useState({});
-  const openModal = () => {
-    const modal = document.getElementById("authentication-modal");
-    modal.classList.remove("hidden");
-    modal.setAttribute("aria-hidden", "false");
-  };
+  const [formValues, setFormValues] = useState({});
+  const [open, setOpen] = useState(false);
 
-  const closeModal = () => {
-    const modal = document.getElementById("authentication-modal");
-    modal.classList.add("hidden");
-    modal.setAttribute("aria-hidden", "true");
-  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
@@ -26,50 +17,54 @@ export function EditForm() {
     event.preventDefault();
     try {
       const response = await fetch(`${process.env.REACT_APP_URL}/customer`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-            'Content-Type': 'application/json',
-          },
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formValues),
       });
-toast.success("Customer edit successfully",{style: {
-    borderRadius: '10px',
-    background: '#374151',
-    color: '#fff',
-  },})
-    console.log(response);
+      toast.success("Customer edit successfully", {
+        style: {
+          borderRadius: "10px",
+          background: "#374151",
+          color: "#fff",
+        },
+      });
+      console.log(response);
     } catch (error) {
-        toast.error("Try again",{style: {
-            borderRadius: '10px',
-            background: '#374151',
-            color: '#fff',
-          },})
-      console.log('Error sending data:', error);
+      toast.error("Try again", {
+        style: {
+          borderRadius: "10px",
+          background: "#374151",
+          color: "#fff",
+        },
+      });
+      console.log("Error sending data:", error);
     }
-    closeModal();
+    setOpen(false)
   };
   return (
     <>
       <button
-        onClick={openModal}
+        onClick={e=>setOpen(true)}
         className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
         type="button"
       >
-       Edit
+        Edit
       </button>
 
-      <div
+      {open&&<div
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50  "
+        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50  bg-[#00000090] "
       >
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-70">
           <button
             type="button"
             className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
             data-modal-hide="authentication-modal"
-            onClick={closeModal}
+            onClick={e=>setOpen(false)}
           >
             <svg
               aria-hidden="true"
@@ -93,7 +88,7 @@ toast.success("Customer edit successfully",{style: {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
-                 htmlFor="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Company Name
@@ -110,7 +105,7 @@ toast.success("Customer edit successfully",{style: {
               </div>
               <div>
                 <label
-                 htmlFor="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Email
@@ -127,7 +122,7 @@ toast.success("Customer edit successfully",{style: {
               </div>
               <div>
                 <label
-                 htmlFor="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                 >
                   Address
@@ -155,7 +150,7 @@ toast.success("Customer edit successfully",{style: {
             </form>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 }

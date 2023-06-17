@@ -1,17 +1,9 @@
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 export function Delete(props) {
-  const openModal = () => {
-    const modal = document.getElementById("popup-modal");
-    modal.classList.remove("hidden");
-    modal.setAttribute("aria-hidden", "false");
-  };
+  const [open,setOpen]=useState(false)
 
-  const closeModal = () => {
-    const modal = document.getElementById("popup-modal");
-    modal.classList.add("hidden");
-    modal.setAttribute("aria-hidden", "true");
-  };
   const handleDelete = async () => {
     try {
       const response = await fetch(
@@ -41,7 +33,7 @@ export function Delete(props) {
       });
       console.log("Error sending data:", error);
     }
-    closeModal();
+    setOpen(false);
   };
 
   return (
@@ -51,12 +43,12 @@ export function Delete(props) {
         data-modal-toggle="popup-modal"
         className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
         type="button"
-        onClick={openModal}
+        onClick={e=>setOpen(true)}
       >
         Delete
       </button>
 
-      <div
+     {open&& <div
         id="popup-modal"
         tabIndex="-1"
         className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 "
@@ -68,7 +60,7 @@ export function Delete(props) {
               type="button"
               className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
               data-modal-hide="authentication-modal"
-              onClick={closeModal}
+              onClick={e=>setOpen(false)}
             >
               <svg
                 aria-hidden="true"
@@ -115,7 +107,7 @@ export function Delete(props) {
               <button
                 data-modal-hide="popup-modal"
                 type="button"
-                onClick={closeModal}
+                onClick={e=>setOpen(false)}
                 className="text-gray-700 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
               >
                 No, cancel
@@ -123,7 +115,7 @@ export function Delete(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 }

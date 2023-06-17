@@ -3,17 +3,7 @@ import { toast } from "react-hot-toast";
 
 export function AddProduct() {
     const [formValues, setFormValues] = useState({});
-  const openModal = () => {
-    const modal = document.getElementById("authentication-modal");
-    modal.classList.remove("hidden");
-    modal.setAttribute("aria-hidden", "false");
-  };
-
-  const closeModal = () => {
-    const modal = document.getElementById("authentication-modal");
-    modal.classList.add("hidden");
-    modal.setAttribute("aria-hidden", "true");
-  };
+const [open,setOpen]= useState(false)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
@@ -46,19 +36,19 @@ toast.success("Customer added successfully",{style: {
           },})
       console.log('Error sending data:', error);
     }
-    closeModal();
+    setOpen(false);
   };
   return (
     <>
       <button
-        onClick={openModal}
+        onClick={e=>setOpen(true)}
         className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
         type="button"
       >
         Add
       </button>
 
-      <div
+      {open&&<div
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
@@ -69,7 +59,7 @@ toast.success("Customer added successfully",{style: {
             type="button"
             className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
             data-modal-hide="authentication-modal"
-            onClick={closeModal}
+            onClick={setOpen(false)}
           >
             <svg
               aria-hidden="true"
@@ -223,7 +213,7 @@ toast.success("Customer added successfully",{style: {
             </form>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 }

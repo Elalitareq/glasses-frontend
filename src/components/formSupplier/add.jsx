@@ -25,7 +25,7 @@ export function AddSupplier() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/supplier", {
+      const response = await fetch(`${process.env.REACT_APP_URL}/supplier`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

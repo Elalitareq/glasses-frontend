@@ -25,7 +25,7 @@ export function AddForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/customer', {
+      const response = await fetch(`${process.env.REACT_APP_URL}/customer`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

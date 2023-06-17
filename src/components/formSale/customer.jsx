@@ -14,7 +14,7 @@ export function MyCombobox() {
     useEffect(()=>{
       const fetchData=async()=>{
         try {
-            const response = await fetch('http://localhost:8000/api/customer'
+            const response = await fetch(`${process.env.REACT_APP_URL}/customer`
               );
               const data = await response.json();
               console.log(data)

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { FiEdit2 } from 'react-icons/fi';
 
-export function EditForm() {
+export function EditForm({ id, updateRow }) {
   const [formValues, setFormValues] = useState({});
   const [open, setOpen] = useState(false);
 
@@ -16,21 +17,22 @@ export function EditForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_URL}/customer`, {
+      const response = await fetch(`${process.env.REACT_APP_URL}/customer/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formValues),
       });
-      toast.success("Customer edit successfully", {
+      const data = await response.json();
+      updateRow(data.message);
+      toast.success("Customer edited successfully", {
         style: {
           borderRadius: "10px",
           background: "#374151",
           color: "#fff",
         },
       });
-      console.log(response);
     } catch (error) {
       toast.error("Try again", {
         style: {
@@ -41,7 +43,7 @@ export function EditForm() {
       });
       console.log("Error sending data:", error);
     }
-    setOpen(false)
+    setOpen(false);
   };
   return (
     <>
@@ -50,7 +52,7 @@ export function EditForm() {
         className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
         type="button"
       >
-        Edit
+        <FiEdit2/>
       </button>
 
       {open&&<div
@@ -100,7 +102,7 @@ export function EditForm() {
                   id="email"
                   placeholder="Company"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
+                
                 />
               </div>
               <div>
@@ -117,7 +119,7 @@ export function EditForm() {
                   id="email"
                   className="bg-gray-50 border border-gray-700 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="name@company.com"
-                  required
+             
                 />
               </div>
               <div>
@@ -134,7 +136,7 @@ export function EditForm() {
                   id="password"
                   placeholder="Lebanon"
                   className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
+                
                 />
               </div>
               <div className="flex justify-between">

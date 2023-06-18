@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-export function AddProduct() {
-    const [formValues, setFormValues] = useState({});
+export function AddProduct({product,onAddProduct}) {
+
+ 
+    const [formValues, setFormValues] = useState({product:product});
 const [open,setOpen]= useState(false)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -14,20 +16,35 @@ const [open,setOpen]= useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(formValues)
     try {
-      const response = await fetch(`${process.env.REACT_APP_URL}/product`, {
+      const response = await fetch(`${process.env.REACT_APP_URL}/productInfo`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
           },
         body: JSON.stringify(formValues),
       });
-toast.success("Customer added successfully",{style: {
-    borderRadius: '10px',
-    background: '#374151',
-    color: '#fff',
-  },})
-    console.log(response);
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Product added successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#374151",
+            color: "#fff",
+          },
+        });
+ 
+        onAddProduct(data.message);
+      } else {
+        toast.error("Try again", {
+          style: {
+            borderRadius: "10px",
+            background: "#374151",
+            color: "#fff",
+          },
+        });
+      }
     } catch (error) {
         toast.error("Try again",{style: {
             borderRadius: '10px',
@@ -81,23 +98,7 @@ toast.success("Customer added successfully",{style: {
               Add New Product
             </h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label
-                 htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
-                >
-                 Type
-                </label>
-                <input
-                  type="text"
-                  name="type"
-                  onChange={handleInputChange}
-                  id="email"
-                  placeholder="1.49 UC 65mm（-/-）"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
-              </div>
+           
               <div>
                 <label
                  htmlFor="email"
@@ -115,23 +116,7 @@ toast.success("Customer added successfully",{style: {
                   required
                 />
               </div>
-              <div>
-                <label
-                 htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
-                >
-                  Diameter
-                </label>
-                <input
-                  type="number"
-                  name="diameter"
-                  onChange={handleInputChange}
-                  id="password"
-                  placeholder="15"
-                  className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
-              </div>
+           
               <div>
                 <label
                  htmlFor="password"

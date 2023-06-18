@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-export function AddForm() {
+export function AddForm({ onAddCustomer }) {
   const [formValues, setFormValues] = useState({});
   const [open, setOpen] = useState(false);
 
@@ -23,14 +23,26 @@ export function AddForm() {
         },
         body: JSON.stringify(formValues),
       });
-      toast.success("Customer added successfully", {
-        style: {
-          borderRadius: "10px",
-          background: "#374151",
-          color: "#fff",
-        },
-      });
-      console.log(response);
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Customer added successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#374151",
+            color: "#fff",
+          },
+        });
+ 
+        onAddCustomer(data.message);
+      } else {
+        toast.error("Try again", {
+          style: {
+            borderRadius: "10px",
+            background: "#374151",
+            color: "#fff",
+          },
+        });
+      }
     } catch (error) {
       toast.error("Try again", {
         style: {
@@ -43,6 +55,7 @@ export function AddForm() {
     }
     setOpen(false);
   };
+
   return (
     <>
       <button

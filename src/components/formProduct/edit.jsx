@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { FiEdit2 } from "react-icons/fi";
 
-export function EditProduct() {
+export function EditProduct({ id, updateRow }) {
     const [formValues, setFormValues] = useState({});
 const [open,setOpen] = useState(false);
   const handleInputChange = (event) => {
@@ -15,19 +16,21 @@ const [open,setOpen] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_URL}/product`, {
+      const response = await fetch(`${process.env.REACT_APP_URL}/productInfo/${id}`, {
         method: 'Put',
         headers: {
             'Content-Type': 'application/json',
           },
         body: JSON.stringify(formValues),
       });
-toast.success("Customer edited successfully",{style: {
+      const data = await response.json();
+      updateRow(data.message);
+toast.success("Product edited successfully",{style: {
     borderRadius: '10px',
     background: '#374151',
     color: '#fff',
   },})
-    console.log(response);
+  
     } catch (error) {
         toast.error("Try again",{style: {
             borderRadius: '10px',
@@ -45,7 +48,7 @@ toast.success("Customer edited successfully",{style: {
         className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
         type="button"
       >
-        Edit
+        <FiEdit2/>
       </button>
 
       {open&& <div
@@ -81,23 +84,7 @@ toast.success("Customer edited successfully",{style: {
               Edit  Product
             </h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label
-                 htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
-                >
-                 Type
-                </label>
-                <input
-                  type="text"
-                  name="type"
-                  onChange={handleInputChange}
-                  id="email"
-                  placeholder="1.49 UC 65mm（-/-）"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
-              </div>
+             
               <div>
                 <label
                  htmlFor="email"
@@ -112,7 +99,7 @@ toast.success("Customer edited successfully",{style: {
                   id="email"
                   className="bg-gray-50 border border-gray-700 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="3003000000"
-                  required
+                  
                 />
               </div>
               <div>
@@ -129,7 +116,7 @@ toast.success("Customer edited successfully",{style: {
                   id="password"
                   placeholder="15"
                   className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
+                  
                 />
               </div>
               <div>
@@ -146,7 +133,7 @@ toast.success("Customer edited successfully",{style: {
                   id="password"
                   placeholder="+3.50-0.25"
                   className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
+                  
                 />
               </div>
               <div>
@@ -163,7 +150,7 @@ toast.success("Customer edited successfully",{style: {
                   id="password"
                   placeholder="20$"
                   className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
+                  
                 />
               </div>
               <div>
@@ -180,7 +167,7 @@ toast.success("Customer edited successfully",{style: {
                   id="password"
                   placeholder="15$"
                   className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
+                  
                 />
               </div>
               <div>
@@ -197,7 +184,7 @@ toast.success("Customer edited successfully",{style: {
                   id="password"
                   placeholder="10"
                   className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  required
+                  
                 />
               </div>
               <div className="flex justify-between">

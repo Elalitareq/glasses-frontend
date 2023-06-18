@@ -1,0 +1,14 @@
+.title{
+    display: flex;
+    justify-content: space-between;
+    margin: 1pc auto ;
+}
+.title h1{
+ font-size: 40px;  
+ color:#374151
+}
+.cardProduct{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

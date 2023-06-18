@@ -12,6 +12,7 @@ import ProductsPage from "./pages/products";
 import SalesPage from "./pages/sales";
 import { Toaster } from "react-hot-toast";
 import TestPage from "./pages/test";
+import Product from "./pages/product";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/suppliers" element={<SupliersPage/>} />
             <Route path="/users" element={<UserPage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/product/:id" element={<Product/>} />
             <Route path="/sales" element={<SalesPage />} />
             <Route path="/test" element={<TestPage />} />
           </Route>

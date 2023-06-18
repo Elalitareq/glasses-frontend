@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-
+import {AiOutlineDelete} from 'react-icons/ai'
 export function Delete(props) {
   const [open,setOpen]=useState(false)
-
+  const {  setRows } = props;
   const handleDelete = async () => {
     try {
       const response = await fetch(
@@ -15,6 +15,7 @@ export function Delete(props) {
           },
         }
       );
+      setRows((prevRows) => prevRows.filter((row) => row._id !== props.id));
       toast.success("Customer deleted successfully", {
         style: {
           borderRadius: "10px",
@@ -45,7 +46,7 @@ export function Delete(props) {
         type="button"
         onClick={e=>setOpen(true)}
       >
-        Delete
+       <AiOutlineDelete/>
       </button>
 
      {open&& <div

@@ -1,10 +1,16 @@
 import React from 'react'
-import { AddProduct } from '../../components/formProduct/add'
-import { EditProduct } from '../../components/formProduct/edit'
+import Example from '../../components/card/card'
+
+
 
 const ProductsPage = () => {
   return (
-    <div><AddProduct/><EditProduct/></div>
+    <>
+    <section className="title">
+    <h1>Product</h1>
+  </section>
+    <Example/>
+    </>
   )
 }
 

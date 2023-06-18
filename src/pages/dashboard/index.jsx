@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
+import NewProduct from "../../components/newCustomer/newCustomer";
+import NewSupplier from "../../components/newSupplier/newSupplier";
+import NotStocked from "../../components/notStockedCard/noStocked";
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <div>
+      {" "}
+      <section className="title">
+        <h1>Dashboard</h1>
+      </section>
+      <section className="flex justify-between flex-wrap">
+       <NewProduct/>
 
-export default Dashboard
+        <NotStocked />
+        <NewSupplier/>
+      </section>
+    </div>
+  );
+};
+
+export default Dashboard;

@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { MyCombobox } from "./customer";
-import { MyComboboxProduct } from "./product";
+import MyComboboxProduct  from "./product";
+import Type from "./customer";
 
 export function AddSale() {
   const [open, setOpen] = useState(false);
- 
+ const [product,setProduct]=useState({})
+ const [selectedCustomerId, setSelectedCustomerId] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_URL}/product`, {
+      const response = await fetch(`${process.env.REACT_APP_URL}/sale`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,8 +37,14 @@ export function AddSale() {
     }
   
   };
-  const handleSelectedProducts = (selectedProducts) => {
-    console.log(selectedProducts);
+  const handleSelectedProducts = (selectedProductIds) => {
+    console.log(selectedProductIds);
+setProduct()
+  };
+  
+  const handleSelectedCustomer = (customerId) => {
+    setSelectedCustomerId(customerId);
+    console.log(selectedCustomerId)
   };
   return (
     <>
@@ -83,10 +90,11 @@ export function AddSale() {
             </h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <MyCombobox />
-                <MyComboboxProduct
-                  onSelectedProducts={handleSelectedProducts}
-                />
+              <Type onSelectedCustomer={handleSelectedCustomer} />
+                <MyComboboxProduct onSelectedProducts={handleSelectedProducts} />
+
+
+
               </div>
               <div className="flex justify-between">
                 <div className="flex items-start"></div>

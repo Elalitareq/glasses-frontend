@@ -16,7 +16,7 @@ import Product from "./pages/product";
 
 function App() {
   return (
-    <>
+    <div className="bg-[#eee] h-screen">
     <div><Toaster   position="bottom-right"/></div>
     <BrowserRouter>
       <AuthProvider
@@ -50,7 +50,7 @@ function App() {
         </Routes>
       </AuthProvider>
     </BrowserRouter>
-    </>
+    </div>
   );
 }
 

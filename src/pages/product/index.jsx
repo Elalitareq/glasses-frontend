@@ -95,7 +95,7 @@ const Product = () => {
  
   ];
   return(<div>
-     <section className="title">
+     <section className="title ">
   <h1>{type}</h1>
   <AddProduct product={id} onAddProduct={handleAddProduct}/>
 </section>

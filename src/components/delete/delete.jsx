@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import {AiOutlineDelete} from 'react-icons/ai'
+import { FiDelete, FiTrash } from "react-icons/fi";
 export function Delete(props) {
   const [open,setOpen]=useState(false)
   const {  setRows } = props;
@@ -42,11 +43,11 @@ export function Delete(props) {
       <button
         data-modal-target="popup-modal"
         data-modal-toggle="popup-modal"
-        className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+        className="block text-red-400 font-extrabold text-xl hover:text-red-600 hover:scale-125 transition-all duration-300"
         type="button"
         onClick={e=>setOpen(true)}
       >
-       <AiOutlineDelete/>
+       <FiTrash/>
       </button>
 
      {open&& <div

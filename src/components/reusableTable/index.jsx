@@ -26,7 +26,7 @@ const ReusableTable = ({ columns, rows }) => {
               {columns.map((column) => (
                 <td
                   key={column.accessor}
-                  className={`px-5 py-3 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${index % 2 === 0 ? " bg-gray-200" : " bg-white"}`}
+                  className={`px-6 py-5 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${index % 2 === 0 ? " bg-gray-200" : " bg-white"}`}
                 >
                   {column.accessor !== "Action"
                     ? row[column.accessor]

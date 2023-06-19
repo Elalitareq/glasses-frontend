@@ -1,55 +1,69 @@
-import React, { useState, useEffect } from "react";
-import Select from "react-select";
+import React, { useState } from "react";
+import { FcAddRow } from 'react-icons/fc'
+import { CiCircleRemove } from 'react-icons/ci'
 
 function MyComboboxProduct({ onSelectedProducts }) {
-  const [data, setData] = useState([]);
- 
+  const [inputs, setInputs] = useState([{ id: 0, value: "" }]);
+  const [nextId, setNextId] = useState(1);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_URL}/productInfo`
-        );
-        const responseData = await response.json();
-        console.log(responseData);
-        setData(responseData.message);
-      } catch (error) {
-        console.log("Error sending data:", error);
-      }
-    };
+  const handleInputChange = (index, event) => {
+    const newInputs = [...inputs];
+    newInputs[index].value = event.target.value;
+    setInputs(newInputs);
 
-    fetchData();
-  }, []);
-
-  const setHandle = (e) => {
-    const selectedProductIds = Array.isArray(e)
-      ? e.map((product) => product.value)
-      : [];
-
-
+    // Call onSelectedProducts with updated input values
     if (typeof onSelectedProducts === "function") {
-      onSelectedProducts(selectedProductIds);
+      const selectedProducts = newInputs.map((input) => input.value);
+      onSelectedProducts(selectedProducts);
     }
   };
 
+  const handleAddInput = (event) => {
+    event.preventDefault(); // Prevent form submission
+  
+    setInputs([...inputs, { id: nextId, value: "" }]);
+    setNextId(nextId + 1);
+  };
+  
+
+  const handleRemoveInput = (index) => {
+    if (index === 0) {
+      return; 
+    }
+    const newInputs = [...inputs];
+    newInputs.splice(index, 1);
+    setInputs(newInputs);
+
+    // Call onSelectedProducts with updated input values
+    if (typeof onSelectedProducts === "function") {
+      const selectedProducts = newInputs.map((input) => input.value);
+      onSelectedProducts(selectedProducts);
+    }
+  };
+
+
   return (
-    <div className=" container py-2 text-black">
-      {data.length > 0 && (
-        <div>
-          <div className=" px-2">
-            <Select
-              options={data.map((item) => ({
-                label: item.power,
-                value: item._id,
-              }))}
-              placeholder="Select product"
-              onChange={setHandle}
-              isMulti
-            />
-          </div>
+    <div className="container py-2 text-black">
+      {inputs.map((input, index) => (
+        <div key={input.id} className="flex mb-2">
+          <input
+            type="text"
+            placeholder="Barcode"
+            value={input.value}
+            onChange={(event) => handleInputChange(index, event)}
+            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+          />
+          {index !== 0 && (
+            <button onClick={() => handleRemoveInput(index)}>
+              <CiCircleRemove className="w-10 h-10 text-white" />
+            </button>
+          )}
         </div>
-      )}
+      ))}
+      <button onClick={handleAddInput} className="flex justify-center items-center text-white">
+        <FcAddRow className="w-10 h-10" />
+        <span>Add Product</span>
+      </button>
     </div>
   );
 }

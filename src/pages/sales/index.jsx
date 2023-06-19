@@ -21,7 +21,7 @@ const SalesPage = () => {
         );
         const data = await response.json();
         setRows(data.message.docs);
-
+        console.log(data);
         setPageCount(data.message.totalPages);
       } catch (error) {
         console.log("Error sending data:", error);
@@ -48,7 +48,7 @@ const SalesPage = () => {
           <ul>
             {params.row.products.map((product) => (
               <li key={product._id}>
-                power:{product.product.power} Quantity:{product.quantity}
+                barcode:{product.barcode} Quantity:{product.quantity}
               </li>
             ))}
           </ul>
@@ -71,7 +71,9 @@ const SalesPage = () => {
       header: "Action",
       renderCell: (params) => {
         return (
-         <Link to={`/invoice/${params.row._id}`}><CiRead/></Link>
+          <Link to={`/invoice/${params.row._id}`}>
+            <CiRead />
+          </Link>
         );
       },
     },

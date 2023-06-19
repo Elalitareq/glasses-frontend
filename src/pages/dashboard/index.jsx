@@ -10,13 +10,11 @@ const Dashboard = () => {
       <section className="title">
         <h1>Dashboard</h1>
       </section>
-
       <section className="grid grid-cols-3 gap-4">
-              <NotStocked />
-       <NewProduct/>
+        <NotStocked />
+        <NewProduct />
 
-  
-        <NewSupplier/>
+        <NewSupplier />
       </section>
     </div>
   );

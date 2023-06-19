@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Delete } from "../../components/delete/delete";
+import Loading from "../../components/loading/loading";
 
 function Invoice() {
   const { saleId } = useParams();
@@ -28,7 +29,7 @@ function Invoice() {
   useEffect(() => {
     if (sale.products && sale.products.length > 0) {
       const totalPrice = sale.products.reduce((sum, product) => {
-        return sum + product.quantity * product.product.selling_price;
+        return sum + product.quantity * product.product_id.selling_price;
       }, 0);
       setTotal(totalPrice);
     }
@@ -58,16 +59,16 @@ function Invoice() {
   const handleDiscountChange = async (event) => {
     setSale((prevSale) => ({ ...prevSale, discount: event.target.value }));
     const discount = event.target.value;
-   
-  if (sale.products && sale.products.length > 0) {
-    const totalPrice = sale.products.reduce((sum, product) => {
-      return sum + product.quantity * product.product.selling_price;
-    }, 0);
 
-    const discountedPrice = totalPrice - (totalPrice * discount) / 100;
-    const updatedTotal = discountedPrice.toFixed(2);
-    setTotal(updatedTotal);
-  }
+    if (sale.products && sale.products.length > 0) {
+      const totalPrice = sale.products.reduce((sum, product) => {
+        return sum + product.quantity * product.product.selling_price;
+      }, 0);
+
+      const discountedPrice = totalPrice - (totalPrice * discount) / 100;
+      const updatedTotal = discountedPrice.toFixed(2);
+      setTotal(updatedTotal);
+    }
     try {
       const response = await fetch(
         `${process.env.REACT_APP_URL}/sale/${saleId}`,
@@ -90,10 +91,9 @@ function Invoice() {
       <>
         <section className="title">
           <h1>Invoice</h1>
-      
         </section>
         <div className="flex items-center justify-center  text-gray-700">
-          {/* <div className="w-[80%] bg-white shadow-lg">
+          <div className="w-[80%] bg-white shadow-lg">
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
@@ -137,40 +137,41 @@ function Invoice() {
                     </tr>
                   </thead>
                   <tbody className="bg-white">
-                    {sale.products.map((product, index) => (
-                      <tr
-                        className={`px-6 py-5 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${
-                          index % 2 === 0 ? " bg-gray-200" : " bg-white"
-                        }`}
-                      >
-                        <td className="px-6 py-4 text-sm text-gray-500">
-                          {product.product.product.type||" "}
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="text-sm text-gray-900">
-                            {product.product.power}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <input
-                            type="number"
-                            value={product.quantity}
-                            onChange={(e) =>
-                              handleQuantityChange(index, e.target.value)
-                            }
-                            className={`border rounded-sm  font-semibold whitespace-nowrap text-sm  text-gray-900 ${
-                              index % 2 === 0 ? " bg-gray-200" : " bg-white"
-                            }`}
-                          />
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
-                          ${product.product.selling_price}
-                        </td>
-                        <td className="px-6 py-4">
-                          {product.quantity * product.product.selling_price}
-                        </td>
-                      </tr>
-                    ))}
+                    {sale &&
+                      sale.products&&sale.products.map((product, index) => (
+                        <tr
+                          className={`px-6 py-5 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${
+                            index % 2 === 0 ? " bg-gray-200" : " bg-white"
+                          }`}
+                        >
+                          <td className="px-6 py-4 text-sm text-gray-500">
+                            {product.barcode}
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="text-sm text-gray-900">
+                              {product.product_id&&product.product_id.power}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <input
+                              type="number"
+                              value={product.quantity}
+                              onChange={(e) =>
+                                handleQuantityChange(index, e.target.value)
+                              }
+                              className={`border rounded-sm  font-semibold whitespace-nowrap text-sm  text-gray-900 ${
+                                index % 2 === 0 ? " bg-gray-200" : " bg-white"
+                              }`}
+                            />
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-500">
+                            ${product.product_id&&product.product_id.selling_price}
+                          </td>
+                          <td className="px-6 py-4">
+                            {product.quantity * product.product_id&&product.product_id.selling_price}
+                          </td>
+                        </tr>
+                      ))}
                     <tr>
                       <th colSpan="3"></th>
                       <td className="px-6 py-5   font-semibold whitespace-nowrap text-sm  text-gray-900">
@@ -179,10 +180,11 @@ function Invoice() {
                       <td className="text-sm font-bold">
                         <input
                           type="number"
-                          value={sale.discount }
+                          value={sale.discount}
                           onChange={handleDiscountChange}
                           className="text-sm font-bold"
-                        /><span>%</span>
+                        />
+                        <span>%</span>
                       </td>
                     </tr>
                     <tr className="px-6 py-5   font-semibold whitespace-nowrap text-sm text-white bg-gray-900">
@@ -209,12 +211,16 @@ function Invoice() {
                 </button>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </>
     );
   } else {
-    return <h1>Loading</h1>;
+    return (
+      <h1>
+        <Loading />
+      </h1>
+    );
   }
 }
 

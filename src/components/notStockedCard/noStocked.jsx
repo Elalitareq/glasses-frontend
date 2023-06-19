@@ -7,23 +7,10 @@ import {
  
 } from "@material-tailwind/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
+
 
 export default function NotStocked() {
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(
-              `${process.env.REACT_APP_URL}/productInfo/last`
-            );
-            const data = await response.json();
-            console.log(data);
-          } catch (error) {
-            console.log("Error sending data:", error);
-          }
-        };
-        fetchData();
-      }, []);
+ 
   return (
     <Card
       variant="gradient"

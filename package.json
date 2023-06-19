@@ -47,9 +47,7 @@
       "last 1 safari version"
     ]
   },
-  "engines": {
-    "node": ">=14 <15"
-  },
+
   "devDependencies": {
     "tailwindcss": "^3.3.2"
   }

@@ -144,7 +144,7 @@ function Invoice() {
                         }`}
                       >
                         <td className="px-6 py-4 text-sm text-gray-500">
-                          {product.product.product.type}
+                        
                         </td>
                         <td className="px-6 py-4">
                           <div className="text-sm text-gray-900">

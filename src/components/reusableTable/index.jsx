@@ -28,11 +28,20 @@ const ReusableTable = ({ columns, rows }) => {
                   key={column.accessor}
                   className={`px-6 py-5 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${index % 2 === 0 ? " bg-gray-200" : " bg-white"}`}
                 >
-                  {column.accessor !== "Action"
-                    ? row[column.accessor]
-                    : column.renderCell({ row })}
+             {column.accessor === "isStocked" && column.renderCell
+                    ? column.renderCell({ row })
+                    : column.accessor === "products" && column.renderCell
+                    ? column.renderCell({ row })
+                    : column.accessor === "customer" && column.renderCell
+                    ? column.renderCell({ row })
+                    : column.accessor === "Action" && column.renderCell
+                    ? column.renderCell({ row })
+                    : row[column.accessor]}
+                    
+
                 </td>
               ))}
+              
             </tr>
           ))}
         </tbody>

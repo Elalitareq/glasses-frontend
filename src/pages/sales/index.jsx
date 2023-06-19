@@ -1,21 +1,14 @@
-
-
-
-
-
-import { useParams } from "react-router-dom";
-import { AddSale } from '../../components/formSale/add'
+import { Link, useParams } from "react-router-dom";
+import { AddSale } from "../../components/formSale/add";
 import React, { useEffect, useState } from "react";
-import { Delete } from "../../components/delete/delete";
+import { CiRead } from "react-icons/ci";
 
 import { PaginationNav1Presentation } from "../../components/pagination/pagination";
 import ReusableTable from "../../components/reusableTable";
 
-
 const SalesPage = () => {
   const { id } = useParams();
-  const queryParams = new URLSearchParams(window.location.search);
-  const type = queryParams.get("type");
+
   const [rows, setRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
@@ -38,62 +31,66 @@ const SalesPage = () => {
     fetchData(currentPage);
   }, [currentPage]);
 
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
   const handleAddProduct = (product) => {
-
     setRows((prevRows) => [...prevRows, product]);
   };
 
   const columns = [
-    { accessor: "created_at", header: "Created At" },
-    { accessor: "customer.address", header: "Address" },
-    { accessor: "customer.company_name", header: "Company Name" },
-    { accessor: "customer.email", header: "Email" },
-    { accessor: "discount", header: "Discount" },
     {
-      accessor: "products.product",
+      accessor: "products",
       header: "Products",
       renderCell: (params) => {
-        console.log(params.row)
-        const products = params.row.products;
-        const productNames = products.map((product) => product.product.power).join(", ");
-        return <span>{productNames}</span>;
+        return (
+          <ul>
+            {params.row.products.map((product) => (
+              <li key={product._id}>
+                power:{product.product.power} Quantity:{product.quantity}
+              </li>
+            ))}
+          </ul>
+        );
       },
     },
-  
+    {
+      accessor: "customer",
+      header: "Customer",
+      renderCell: (params) => {
+        return params.row.customer.company_name;
+      },
+    },
+
+    { accessor: "created_at", header: "Created At" },
+    { accessor: "discount", header: "Discount" },
+
     {
       accessor: "Action",
       header: "Action",
       renderCell: (params) => {
         return (
-          <div style={{ display: "flex" }}>
-            <Delete title="Product" url="productInfo" id={params.row._id} setRows={setRows} />
-          </div>
+         <Link to={`/invoice/${params.row._id}`}><CiRead/></Link>
         );
       },
     },
   ];
-  
-  return(<div>
-     <section className="title ">
-  <h1>Sales</h1>
-  <AddSale product={id} onAddProduct={handleAddProduct}/>
-</section>
- <ReusableTable columns={columns} rows={rows} />
- <PaginationNav1Presentation
-   currentPage={currentPage}
-   handlePageChange={handlePageChange}
-   pageCount={pageCount}
- />
- </div>
-) 
-  
-  ;
+
+  return (
+    <div>
+      <section className="title ">
+        <h1>Sales</h1>
+        <AddSale product={id} onAddProduct={handleAddProduct} />
+      </section>
+      <ReusableTable columns={columns} rows={rows} />
+      <PaginationNav1Presentation
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+        pageCount={pageCount}
+      />
+    </div>
+  );
 };
 
-
-export default SalesPage
+export default SalesPage;

@@ -30,7 +30,7 @@ toast.success("Product edited successfully",{style: {
     background: '#374151',
     color: '#fff',
   },})
-  
+
     } catch (error) {
         toast.error("Try again",{style: {
             borderRadius: '10px',

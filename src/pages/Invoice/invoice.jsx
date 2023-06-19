@@ -90,6 +90,7 @@ function Invoice() {
       <>
         <section className="title">
           <h1>Invoice</h1>
+      
         </section>
         <div className="flex items-center justify-center  text-gray-700">
           <div className="w-[80%] bg-white shadow-lg">

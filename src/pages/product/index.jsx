@@ -64,8 +64,9 @@ const Product = () => {
         accessor: "isStocked",
         header: "Stocked",
         renderCell: (params) => {
+       console.log()
             const isStocked = Boolean(params.row.isStocked);
-            console.log("isStocked:", isStocked); // Add this line
+          
             return (
               <div style={{ display: "flex" }}>
                 {isStocked ? (

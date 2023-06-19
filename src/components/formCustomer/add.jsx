@@ -60,7 +60,7 @@ export function AddForm({ onAddCustomer }) {
     <>
       <button
         onClick={e=>setOpen(true)}
-        className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+        className="block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-medium px-4 py-3 text-center transition-colors duration-300"
         type="button"
       >
         Add

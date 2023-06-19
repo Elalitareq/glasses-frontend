@@ -19,6 +19,7 @@ const Sidebar = () => {
     if (isLoggingOut) {
       logout()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggingOut])
 
   return (
@@ -36,7 +37,7 @@ const Sidebar = () => {
         </Link>
       ))}
       <button
-        className='w-[calc(100%-2rem)] py-3 my-2 font-semibold text-center absolute bottom-4 text-white rounded-lg px-4 hover:bg-red-500  transition-colors duration-300'
+        className='w-[calc(100%-2rem)] py-3 my-2 font-semibold text-center absolute bottom-4 text-white rounded-lg px-4 bg-red-400 hover:bg-red-500  transition-colors duration-300'
         onClick={e => setIsLoggingOut(true)}
       >
         Logout

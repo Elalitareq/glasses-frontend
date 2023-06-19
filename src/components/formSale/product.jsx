@@ -34,7 +34,7 @@ function MyComboboxProduct({ onSelectedProducts }) {
   };
 
   return (
-    <div className=" container py-2">
+    <div className=" container py-2 text-black">
       {data.length > 0 && (
         <div>
           <div className=" px-2">

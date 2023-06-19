@@ -93,7 +93,7 @@ function Invoice() {
       
         </section>
         <div className="flex items-center justify-center  text-gray-700">
-          <div className="w-[80%] bg-white shadow-lg">
+          {/* <div className="w-[80%] bg-white shadow-lg">
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
@@ -144,7 +144,7 @@ function Invoice() {
                         }`}
                       >
                         <td className="px-6 py-4 text-sm text-gray-500">
-                          {product.product.product.type}
+                          {product.product.product.type||" "}
                         </td>
                         <td className="px-6 py-4">
                           <div className="text-sm text-gray-900">
@@ -209,7 +209,7 @@ function Invoice() {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </>
     );

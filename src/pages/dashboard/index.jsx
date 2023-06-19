@@ -11,7 +11,7 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
       </section>
 
-      <section className="flex justify-between flex-wrap my-[10%]">
+      <section className="grid grid-cols-3 gap-4">
               <NotStocked />
        <NewProduct/>
 

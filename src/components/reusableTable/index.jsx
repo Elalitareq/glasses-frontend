@@ -18,7 +18,7 @@ const ReusableTable = ({ columns, rows }) => {
           </tr>
         </thead>
         <tbody className=" bg-gray-700">
-          {rows.map((row,index) => (
+          {rows&&rows.map((row,index) => (
             <tr
               key={row._id}
               className=""

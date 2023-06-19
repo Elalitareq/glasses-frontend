@@ -37,8 +37,8 @@ export function AddSale() {
         },
       });
       const res=await response.json();
-  
-      navigate({ pathname:`/invoice/${res.message._id}` });
+      console.log(res)
+      // navigate({ pathname:`/invoice/${res.message._id}` });
     } catch (error) {
       toast.error("Try again", {
         style: {
@@ -98,8 +98,8 @@ setProduct(selectedProductIds)
             </svg>
             <span className="sr-only">Close modal</span>
           </button>
-          <div className="px-6 py-6 lg:px-8">
-            <h3 className="mb-4 text-xl font-medium text-gray-700 dark:text-white">
+          <div className="px-6 py-6 lg:px-8 bg-gray-700 text-white">
+            <h3 className="mb-4 text-xl font-medium ">
               Add New Product
             </h3>
             <form className="space-y-6" onSubmit={handleSubmit}>

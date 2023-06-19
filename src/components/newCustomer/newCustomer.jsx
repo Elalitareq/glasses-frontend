@@ -26,7 +26,7 @@ export default function NewProduct() {
   return (
     <Card
       variant="gradient"
-      className="bg-gray-700 w-[500px] max-w-[500px] text-white  p-8  rounded-lg"
+      className="bg-gray-700 w-full max-w-[500px] text-white  p-8  rounded-lg"
     >
       <CardHeader
         floated={false}
@@ -44,7 +44,7 @@ export default function NewProduct() {
       </CardHeader>
       <CardBody className="p-0">
         <ul className="flex flex-col gap-4">
-          {customer.map((customer,i) => (
+          {customer&&customer.map((customer,i) => (
             <li className="flex items-center gap-4" key={i}>
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon strokeWidth={2} className="h-3 w-3" />

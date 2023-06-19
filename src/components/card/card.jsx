@@ -32,12 +32,12 @@ export default function Example({ newType }) {
   }, [newType]);
   return (
     <div className="cardProduct">
-      {type.map((data) => (
+      {type?type.map((data) => (
         <Card key={data._id} className="mt-6 w-96 relative">
-          <button className="absolute top-4 right-4 text-xl text-red-400 hover:text-red-500 transition-all duration-300">
+          <div className="absolute top-4 right-4 text-xl text-red-400 hover:text-red-500 transition-all duration-300">
             <Delete setRows={setType}  url="product" id={data._id}  />
 
-          </button>
+          </div>
 
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -51,7 +51,7 @@ export default function Example({ newType }) {
             
           </CardFooter>
         </Card>
-      ))}
+      )):<h2 className="w-full text-center">No Product Types Found</h2>}
     </div>
   );
 }

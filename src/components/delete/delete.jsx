@@ -56,7 +56,8 @@ export function Delete(props) {
           color: "#fff",
         },
       });
-      console.log(response);
+      const something = await response.json()
+      console.log(something)
     } catch (error) {
       toast.error("Try again", {
         style: {

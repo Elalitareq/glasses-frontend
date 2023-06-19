@@ -93,8 +93,8 @@ const [open,setOpen]= useState(false)
             </svg>
             <span className="sr-only">Close modal</span>
           </button>
-          <div className="px-6 py-6 lg:px-8">
-            <h3 className="mb-4 text-xl font-medium text-gray-700 dark:text-white">
+          <div className="px-6 py-6 lg:px-8 bg-gray-700 text-white">
+            <h3 className="mb-4 text-xl font-medium ">
               Add New Product
             </h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -102,7 +102,7 @@ const [open,setOpen]= useState(false)
               <div>
                 <label
                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
+                  className="block mb-2 text-sm font-medium "
                 >
                   Barcode
                 </label>
@@ -120,12 +120,12 @@ const [open,setOpen]= useState(false)
               <div>
                 <label
                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
+                  className="block mb-2 text-sm font-medium "
                 >
                   Power
                 </label>
                 <input
-                  type="number"
+                  type="string"
                   name="power"
                   onChange={handleInputChange}
                   id="password"
@@ -137,7 +137,7 @@ const [open,setOpen]= useState(false)
               <div>
                 <label
                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
+                  className="block mb-2 text-sm font-medium "
                 >
                   Selling Price
                 </label>
@@ -154,7 +154,7 @@ const [open,setOpen]= useState(false)
               <div>
                 <label
                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
+                  className="block mb-2 text-sm font-medium "
                 >
                  Buying Price
                 </label>
@@ -171,7 +171,7 @@ const [open,setOpen]= useState(false)
               <div>
                 <label
                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
+                  className="block mb-2 text-sm font-medium "
                 >
                Quantity
                 </label>

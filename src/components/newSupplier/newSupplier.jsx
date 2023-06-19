@@ -28,7 +28,7 @@ import {
     return (
       <Card
         variant="gradient"
-        className="bg-gray-700  text-white w-[500px] max-w-[500px] p-8"
+        className="bg-gray-700  text-white w-[500px] max-w-[500px] p-8  rounded-lg"
       >
         <CardHeader
           floated={false}
@@ -46,9 +46,9 @@ import {
         </CardHeader>
         <CardBody className="p-0">
         <ul className="flex flex-col gap-4">
-            {supplier.map((supplier)=>(
+            {supplier.map((supplier,i)=>(
 
-<li className="flex items-center gap-4">
+<li className="flex items-center gap-4" key={i}>
 <span className="rounded-full border border-white/20 bg-white/20 p-1">
   <CheckIcon strokeWidth={2} className="h-3 w-3" />
 </span>

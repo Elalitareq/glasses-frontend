@@ -1,64 +1,59 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import MyComboboxProduct  from "./product";
-import Type from "./customer";
-import { useNavigate } from "react-router-dom";
-export function AddSale() {
-  const [open, setOpen] = useState(false);
- const [product,setProduct]=useState([])
 
+export function AddType({onAddProduct}) {
 
- const navigate = useNavigate();
- const [customer, setSelectedCustomerId] = useState("");
+ 
+    const [formValues, setFormValues] = useState({});
+const [open,setOpen]= useState(false)
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(product)
-    const data = {
-      products: product.map((productId) => ({
-        product: productId,
-        quantity: 1,
-      })),
-      customer: customer,
-    };
-  
+    console.log(formValues)
     try {
-      const response = await fetch(`${process.env.REACT_APP_URL}/sale`, {
-        method: "POST",
+      const response = await fetch(`${process.env.REACT_APP_URL}/product`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+            'Content-Type': 'application/json',
+          },
+        body: JSON.stringify(formValues),
       });
-      toast.success("sales created successfully", {
-        style: {
-          borderRadius: "10px",
-          background: "#374151",
-          color: "#fff",
-        },
-      });
-      const res=await response.json();
-  
-      navigate({ pathname:`/invoice/${res.message._id}` });
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Product added successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#374151",
+            color: "#fff",
+          },
+        });
+ console.log(data)
+        onAddProduct(data.message);
+      } else {
+        toast.error("Try again", {
+          style: {
+            borderRadius: "10px",
+            background: "#374151",
+            color: "#fff",
+          },
+        });
+      }
     } catch (error) {
-      toast.error("Try again", {
-        style: {
-          borderRadius: "10px",
-          background: "#374151",
-          color: "#fff",
-        },
-      });
-      console.log("Error sending data:", error);
+        toast.error("Try again",{style: {
+            borderRadius: '10px',
+            background: '#374151',
+            color: '#fff',
+          },})
+      console.log('Error sending data:', error);
     }
-  
-  };
-  const handleSelectedProducts = (selectedProductIds) => {
-    console.log(selectedProductIds);
-setProduct(selectedProductIds)
-  };
-  
-  const handleSelectedCustomer = (customerId) => {
-    setSelectedCustomerId(customerId);
-    console.log(customer)
+    setOpen(false);
   };
   return (
     <>
@@ -70,18 +65,18 @@ setProduct(selectedProductIds)
         Add
       </button>
 
-      {open&& <div
+      {open&&<div
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 bg-[#00000090]"
+        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50  "
       >
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-70">
           <button
             type="button"
             className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
             data-modal-hide="authentication-modal"
-            onClick={e=>setOpen(false)}
+          onClick={() => setOpen(false)}
           >
             <svg
               aria-hidden="true"
@@ -100,16 +95,33 @@ setProduct(selectedProductIds)
           </button>
           <div className="px-6 py-6 lg:px-8">
             <h3 className="mb-4 text-xl font-medium text-gray-700 dark:text-white">
-              Add New Product
+              Add New Type
             </h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
+           
               <div>
-              <Type onSelectedCustomer={handleSelectedCustomer} />
-                <MyComboboxProduct onSelectedProducts={handleSelectedProducts} />
-
-
-
+                <label
+                 htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
+                >
+                  Type
+                </label>
+                <input
+                  type="text"
+                  name="type"
+                  onChange={handleInputChange}
+                  id="email"
+                  className="bg-gray-50 border border-gray-700 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  placeholder="3003000000"
+                  required
+                />
               </div>
+           
+            
+            
+           
+               
+            
               <div className="flex justify-between">
                 <div className="flex items-start"></div>
               </div>

@@ -10,10 +10,12 @@ const Dashboard = () => {
       <section className="title">
         <h1>Dashboard</h1>
       </section>
-      <section className="flex justify-between flex-wrap">
+
+      <section className="flex justify-between flex-wrap my-[10%]">
+              <NotStocked />
        <NewProduct/>
 
-        <NotStocked />
+  
         <NewSupplier/>
       </section>
     </div>

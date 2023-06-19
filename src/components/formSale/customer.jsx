@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const Type = ({ onSelectedCustomer }) => {
   const [data, setData] = useState([]);
-  const [selectedCustomer, setSelectedCustomer] = useState("");
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +21,7 @@ const Type = ({ onSelectedCustomer }) => {
 
   const handleSelectCustomer = (event) => {
     const customerId = event.target.value;
-    setSelectedCustomer(customerId);
+  
 
   
       onSelectedCustomer(customerId);

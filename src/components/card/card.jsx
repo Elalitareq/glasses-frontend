@@ -7,24 +7,27 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-export default function Example() {
+export default function Example({ newType }) {
   const [type, setType] = useState([]);
-  useEffect(() => {
-    const fetchData = async (page) => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_URL}/product?page=${page}`
-        );
-        const data = await response.json();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_URL}/product`);
+        const data = await response.json();
         setType(data.message.docs);
       } catch (error) {
         console.log("Error sending data:", error);
       }
     };
+
     fetchData();
   }, []);
+  useEffect(() => {
+    if (newType && Object.keys(newType).length > 0) {
+      setType((prevType) => [...prevType, newType]);
+    }
+  }, [newType]);
   return (
     <div className="cardProduct">
       {type.map((data) => (
@@ -36,7 +39,7 @@ export default function Example() {
           </CardBody>
           <CardFooter className="pt-0">
             <Button className="bg-gray-700">
-            <Link to={`/product/${data._id}?type=${data.type}`}>View</Link>
+              <Link to={`/product/${data._id}?type=${data.type}`}>View</Link>
             </Button>
           </CardFooter>
         </Card>

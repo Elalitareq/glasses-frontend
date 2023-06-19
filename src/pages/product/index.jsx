@@ -31,7 +31,7 @@ const Product = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage]);
+  }, [currentPage,id]);
   const updateRow = (updatedRow) => {
     setRows((prevRows) => {
       const updatedRows = prevRows.map((row) => {
@@ -95,7 +95,7 @@ const Product = () => {
  
   ];
   return(<div>
-     <section className="title">
+     <section className="title ">
   <h1>{type}</h1>
   <AddProduct product={id} onAddProduct={handleAddProduct}/>
 </section>

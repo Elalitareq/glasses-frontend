@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSignIn } from "react-auth-kit";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 const LoginPage = () => {
@@ -8,15 +9,29 @@ const LoginPage = () => {
   const signIn = useSignIn();
   const navigate =useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    signIn({
-      token: "test",
-      expiresIn:3000,
-      tokenType: "Bearer",
-      authState: {username:email},
-    });
-    navigate("/")
+    const response=await fetch(`${process.env.REACT_APP_URL}/user/login`,{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify({email,password})
+    })
+    const res=await response.json();
+    if(res.success===true){
+
+      signIn({
+        token: "test",
+        expiresIn:3000,
+        tokenType: "Bearer",
+        authState: {username:email},
+      });
+      navigate("/")
+    }else{
+      toast.error("Invalid credentials",{position: "top-right"})
+
+    }
   };
   return (
     <main className=" bg-primary-gradient h-screen w-full flex items-center  justify-center">

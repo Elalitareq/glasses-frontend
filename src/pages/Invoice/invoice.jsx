@@ -65,7 +65,8 @@ function Invoice() {
           body: JSON.stringify({ products: updatedProducts }),
         }
       );
-      console.log(response);
+      const res=await response.json();
+      console.log(res)
     } catch (error) {
       console.log("Error sending data:", error);
     }

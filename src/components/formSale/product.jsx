@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FcAddRow } from 'react-icons/fc'
-import { CiCircleRemove } from 'react-icons/ci'
+// import { CiCircleRemove } from 'react-icons/ci'
 
 function MyComboboxProduct({ onSelectedProducts }) {
   const [inputs, setInputs] = useState([{ id: 0, value: "" }]);

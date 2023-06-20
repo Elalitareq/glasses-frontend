@@ -58,6 +58,7 @@ function PaginationNav1({
           />
         </li>
       ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, pageCount]);
   
     return (

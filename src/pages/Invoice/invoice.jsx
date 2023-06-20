@@ -62,7 +62,7 @@ function Invoice() {
 
     if (sale.products && sale.products.length > 0) {
       const totalPrice = sale.products.reduce((sum, product) => {
-        return sum + product.quantity * product.product.selling_price;
+        return sum + product.quantity * product.product_id.selling_price;
       }, 0);
 
       const discountedPrice = totalPrice - (totalPrice * discount) / 100;

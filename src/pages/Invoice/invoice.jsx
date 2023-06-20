@@ -4,6 +4,7 @@ import { Delete } from "../../components/delete/delete";
 import Loading from "../../components/loading/loading";
 
 function Invoice() {
+  
   const { saleId } = useParams();
   const [sale, setSale] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,19 @@ function Invoice() {
     };
     fetchData();
   }, [saleId]);
+  const handlePrint = () => {
+    const printableDiv = document.getElementById("invoice");
+    if (printableDiv) {
+      const content = printableDiv.innerHTML;
+      const originalContents = document.body.innerHTML;
+
+      document.body.innerHTML = content;
+      window.print();
+
+      document.body.innerHTML = originalContents;
+    }
+  };
+
 
   useEffect(() => {
     if (sale.products && sale.products.length > 0) {
@@ -96,8 +110,8 @@ function Invoice() {
         <section className="title">
           <h1>Invoice</h1>
         </section>
-        <div className="flex items-center justify-center  text-gray-700">
-          <div className="w-[80%] bg-white shadow-lg">
+        <div className=" w-full flex items-center justify-center  text-gray-700" id="invoice">
+          <div className="w-[95%] mx-auto bg-white shadow-lg">
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
@@ -123,19 +137,19 @@ function Invoice() {
                 <table className="w-[100%]">
                   <thead className="bg-gray-700 text-white w-[100%]">
                     <tr className="w-[100%]">
-                      <th className=" border-r border-white bg-gray-700 px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider ">
+                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider ">
                         #
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         Product
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         Quantity
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         Price
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         total
                       </th>
                     </tr>
@@ -144,54 +158,56 @@ function Invoice() {
                     {sale &&
                       sale.products&&sale.products.map((product, index) => (
                         <tr key={index}
-                          className={`px-6 py-5 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${
+                          className={`px-4 py-3 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${
                             index % 2 === 0 ? " bg-gray-200" : " bg-white"
                           }`}
                         >
-                          <td className="px-6 py-4 text-sm text-gray-500">
+                          <td className="px-4 py-3 text-sm text-gray-500">
                             {product.barcode}
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-4 py-4">
                             <div className="text-sm text-gray-900">
                               {product.product_id&&product.product_id.power}
                             </div>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-4 py-4">
                             <input
                               type="number"
                               value={product.quantity}
                               onChange={(e) =>
                                 handleQuantityChange(index, e.target.value)
                               }
-                              className={`border rounded-sm  font-semibold whitespace-nowrap text-sm  text-gray-900 ${
+                              className={`border rounded-sm  font-semibold whitespace-nowrap text-sm w-20  text-gray-900 ${
                                 index % 2 === 0 ? " bg-gray-200" : " bg-white"
                               }`}
                             />
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-500">
+                          <td className="px-4 py-3 text-sm text-gray-500">
                             ${product.product_id?.selling_price}
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-4 py-4">
                             ${product.quantity*product.product_id?.selling_price}
                           </td>
                         </tr>
                       ))}
                     <tr>
                       <th colSpan="3"></th>
-                      <td className="px-6 py-5   font-semibold whitespace-nowrap text-sm  text-gray-900">
+                      <td className="px-4 py-3   font-semibold whitespace-nowrap text-sm  text-gray-900">
                         <b>Discount</b>
                       </td>
                       <td className="text-sm font-bold">
                         <input
+                        max={100}
+                        min={0}
                           type="number"
-                          value={sale.discount}
+                          value={sale.discount||0}
                           onChange={handleDiscountChange}
-                          className="text-sm font-bold"
+                          className="text-sm font-bold w-10"
                         />
                         <span>%</span>
                       </td>
                     </tr>
-                    <tr className="px-6 py-5   font-semibold whitespace-nowrap text-sm text-white bg-gray-900">
+                    <tr className="px-4 py-3   font-semibold whitespace-nowrap text-sm text-white bg-gray-900">
                       <th colSpan="3"></th>
                       <td className="text-sm font-bold">
                         <b>Total</b>
@@ -207,7 +223,10 @@ function Invoice() {
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="p-4">
               <div className="flex items-end justify-end space-x-3">
-                <button className="px-4 py-2 text-sm text-green-600 bg-green-100">
+              <button
+                  className="px-4 py-2 text-sm text-green-600 bg-green-100"
+                  onClick={handlePrint}
+                >
                   Print
                 </button>
                 <div className="px-4 py-2 text-sm text-red-600 bg-red-100">

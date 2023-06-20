@@ -7,7 +7,7 @@ const routes = [
   { to: "/customers", label: "Customers" },
   { to: "/products", label: "Products" },
   { to: "/sales", label: "Sales" },
-  { to: "/suppliers", label: "Suppliers" },
+  // { to: "/suppliers", label: "Suppliers" },
 ]
 
 const Sidebar = () => {

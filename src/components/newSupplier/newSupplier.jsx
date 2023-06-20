@@ -13,11 +13,13 @@ export default function NewSupplier() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
+      console.log(`${process.env.REACT_APP_URL}/supplier/last`)
       try {
         const response = await fetch(
           `${process.env.REACT_APP_URL}/supplier/last`
         );
         const data = await response.json();
+        console.log(data)
         setSupplier(data.message);
         setLoading(false);
       } catch (error) {

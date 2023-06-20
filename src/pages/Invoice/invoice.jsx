@@ -28,9 +28,11 @@ function Invoice() {
 
   useEffect(() => {
     if (sale.products && sale.products.length > 0) {
-      const totalPrice = sale.products.reduce((sum, product) => {
+      let totalPrice = sale.products.reduce((sum, product) => {
         return sum + product.quantity * product.product_id.selling_price;
+
       }, 0);
+      totalPrice = totalPrice-totalPrice*sale.discount/100;
       setTotal(totalPrice);
     }
   }, [sale]);
@@ -65,7 +67,8 @@ function Invoice() {
         return sum + product.quantity * product.product_id.selling_price;
       }, 0);
 
-      const discountedPrice = totalPrice - (totalPrice * discount) / 100;
+      const discountedPrice = totalPrice - totalPrice * (discount / 100);
+      console.log(discountedPrice)
       const updatedTotal = discountedPrice.toFixed(2);
       setTotal(updatedTotal);
     }
@@ -80,7 +83,8 @@ function Invoice() {
           body: JSON.stringify({ discount: event.target.value }),
         }
       );
-      console.log(response);
+      const res=await response.json()
+      console.log(res);
     } catch (error) {
       console.log("Error sending data:", error);
     }
@@ -139,7 +143,7 @@ function Invoice() {
                   <tbody className="bg-white">
                     {sale &&
                       sale.products&&sale.products.map((product, index) => (
-                        <tr
+                        <tr key={index}
                           className={`px-6 py-5 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${
                             index % 2 === 0 ? " bg-gray-200" : " bg-white"
                           }`}
@@ -165,10 +169,10 @@ function Invoice() {
                             />
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-500">
-                            ${product.product_id&&product.product_id.selling_price}
+                            ${product.product_id?.selling_price}
                           </td>
                           <td className="px-6 py-4">
-                            {product.quantity * product.product_id&&product.product_id.selling_price}
+                            ${product.quantity*product.product_id?.selling_price}
                           </td>
                         </tr>
                       ))}
@@ -206,9 +210,9 @@ function Invoice() {
                 <button className="px-4 py-2 text-sm text-green-600 bg-green-100">
                   Print
                 </button>
-                <button className="px-4 py-2 text-sm text-red-600 bg-red-100">
+                <div className="px-4 py-2 text-sm text-red-600 bg-red-100">
                   <Delete title="invoice" url="sale" id={saleId} />
-                </button>
+                </div>
               </div>
             </div>
           </div>

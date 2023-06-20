@@ -21,7 +21,6 @@ const SalesPage = () => {
         );
         const data = await response.json();
         setRows(data.message.docs);
-        console.log(data);
         setPageCount(data.message.totalPages);
       } catch (error) {
         console.log("Error sending data:", error);

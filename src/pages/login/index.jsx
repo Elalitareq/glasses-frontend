@@ -10,7 +10,6 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
     signIn({
       token: "test",
       expiresIn:3000,

@@ -23,7 +23,6 @@ const Product = () => {
         );
         const data = await response.json();
         setRows(data.message.docs);
-        console.log(data.message)
         setPageCount(data.message.totalPages);
       } catch (error) {
         console.log("Error sending data:", error);
@@ -64,7 +63,6 @@ const Product = () => {
         accessor: "isStocked",
         header: "Stocked",
         renderCell: (params) => {
-       console.log()
             const isStocked = Boolean(params.row.isStocked);
           
             return (

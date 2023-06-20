@@ -17,7 +17,6 @@ function Invoice() {
           `${process.env.REACT_APP_URL}/sale/${saleId}`
         );
         const data = await response.json();
-        console.log(data);
         setSale(data.message[0]);
         setLoading(true);
       } catch (error) {

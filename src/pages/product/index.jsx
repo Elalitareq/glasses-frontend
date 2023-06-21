@@ -43,6 +43,20 @@ const Product = () => {
       return updatedRows;
     });
   };
+  const uploadData = async(e)=>{
+    console.log(data)
+    const response = await fetch(
+      `${process.env.REACT_APP_URL}/productInfo/many`,{
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify({dataArray:data,product:id})
+      }
+    )
+    const res=await response.json()
+    console.log(res)
+  }
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -151,6 +165,10 @@ const Product = () => {
             {oneData.power} : {oneData.barcode}
           </div>
         ))}
+        </div>
+        <div className="flex justify-center py-4">
+
+        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300 mx-auto" onClick={uploadData}>Upload Products</button>
         </div>
         </div>
 

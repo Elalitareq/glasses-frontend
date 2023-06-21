@@ -14,7 +14,7 @@ export function AddType({ onAddProduct }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formValues);
+  
     try {
       const response = await fetch(`${process.env.REACT_APP_URL}/product`, {
         method: "POST",

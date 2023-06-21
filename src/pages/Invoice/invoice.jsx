@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useParams } from "react-router";
 import { Delete } from "../../components/delete/delete";
 import Loading from "../../components/loading/loading";
@@ -10,7 +11,7 @@ function Invoice() {
   const [total, setTotal] = useState(0);
   const [updatedProducts, setUpdatedProducts] = useState([]);
   const [isChanged, setIsChanged] = useState(false); // New state variable
-
+const [changeLoading,setChangeLoading]=useState(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,13 +30,14 @@ function Invoice() {
   }, [saleId]);
 
   useEffect(() => {
+    if(sale){
     if (sale.products && sale.products.length > 0) {
       let totalPrice = sale.products.reduce((sum, product) => {
-        return sum + product.quantity * product.product_id.selling_price;
+        return sum + product.quantity * product.price;
       }, 0);
       totalPrice = totalPrice - (totalPrice * sale.discount) / 100;
       setTotal(totalPrice);
-    }
+    }}
   }, [sale]);
 
   const handlePrint = () => {
@@ -60,7 +62,7 @@ function Invoice() {
 
   const handleSave = async () => {
     if (isChanged) {
-      // Only send the request if there are changes
+      setChangeLoading(true)
       try {
         const response = await fetch(
           `${process.env.REACT_APP_URL}/sale/${saleId}`,
@@ -74,10 +76,16 @@ function Invoice() {
               discount: sale.discount,
             }),
           }
+
         );
-        console.log(response);
+        if(response.ok){
+          toast.success('Updated')
+          setChangeLoading(false)
+        }
+  
       } catch (error) {
         console.log("Error sending data:", error);
+        setChangeLoading(false)
       }
     }
   };
@@ -88,7 +96,7 @@ function Invoice() {
 
     if (sale.products && sale.products.length > 0) {
       const totalPrice = sale.products.reduce((sum, product) => {
-        return sum + product.quantity * product.product_id.selling_price;
+        return sum + product.quantity * product.price;
       }, 0);
 
       const discountedPrice = totalPrice - totalPrice * (discount / 100);
@@ -125,7 +133,7 @@ function Invoice() {
               <div className="w-40">
                 <address className="text-sm">
                   <span className="font-bold">To :</span>
-                  {sale.customer.company_name}
+                  {sale.customer&&sale.customer}
                 </address>
               </div>
               <div></div>
@@ -167,7 +175,7 @@ function Invoice() {
                           </td>
                           <td className="px-4 py-4">
                             <div className="text-sm text-gray-900">
-                              {product.product_id && product.product_id.power}
+                              {product.product_power && product.product_power}
                             </div>
                           </td>
                           <td className="px-4 py-4">
@@ -180,15 +188,16 @@ function Invoice() {
                               className={`border rounded-sm  font-semibold whitespace-nowrap text-sm w-20  text-gray-900 ${
                                 index % 2 === 0 ? " bg-gray-200" : " bg-white"
                               }`}
+                              min={0}
                             />
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-500">
-                            ${product.product_id?.selling_price}
+                            ${product.price}
                           </td>
                           <td className="px-4 py-4">
                             $
                             {product.quantity *
-                              product.product_id?.selling_price}
+                              product.price}
                           </td>
                         </tr>
                       ))}
@@ -232,10 +241,10 @@ function Invoice() {
                   Print
                 </button>
              
-                  {isChanged ?    <button
-                  className={`px-4 py-2 text-sm text-green-600 bg-green-100 `}
+                  {isChanged ?  ( !changeLoading? <button
+                  className={`px-4 py-2 text-sm text-blue-600 bg-blue-200 `}
                   onClick={handleSave}
-                >save</button> : null}
+                >save</button>:<div  className={`px-1 py-1 text-sm text-blue-600 bg-blue-200  `}><Loading/></div> ): null}
                 {" "}
                 <div className="px-4 py-2 text-sm text-red-600 bg-red-100">
                   <Delete title="invoice" url="sale" id={saleId} />

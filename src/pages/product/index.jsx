@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { AddProduct } from "../../components/formProduct/add";
 import React, { useEffect, useState } from "react";
 import { Delete } from "../../components/delete/delete";
-
+import Papa from 'papaparse'
 import { PaginationNav1Presentation } from "../../components/pagination/pagination";
 import ReusableTable from "../../components/reusableTable";
 import { EditProduct } from "../../components/formProduct/edit";
@@ -14,7 +14,7 @@ const Product = () => {
   const [rows, setRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
-
+const [data, setData] = useState([])
   useEffect(() => {
     const fetchData = async (page) => {
       try {
@@ -43,7 +43,16 @@ const Product = () => {
     });
   };
  
-
+ const handleFileUpload=(e)=>{
+  const file=e.target.files[0];
+  Papa.parse(file,{
+    header:true,
+    complete:(results)=>{
+      setData(results.data)
+      console.log(results.data)
+    }
+  })
+ }
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -96,6 +105,18 @@ const Product = () => {
   return(<div>
      <section className="title ">
   <h1>{type}</h1>
+  <input type="file"  onChange={handleFileUpload}/>
+  {data.map((innerObject, index) => (
+  <div key={index}>
+    {Object.entries(innerObject).map(([key, value]) => (
+      <span key={key}>
+        {innerObject.power}      </span>
+    ))}
+  </div>
+))}
+
+
+
   <AddProduct product={id} onAddProduct={handleAddProduct}/>
 </section>
  <ReusableTable columns={columns} rows={rows} />

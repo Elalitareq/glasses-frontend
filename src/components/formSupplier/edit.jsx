@@ -33,7 +33,7 @@ export function EditSupplier({ id, updateRow }) {
           color: "#fff",
         },
       });
-      console.log(response);
+
     } catch (error) {
       toast.error("Try again", {
         style: {

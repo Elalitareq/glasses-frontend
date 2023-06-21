@@ -17,6 +17,7 @@ export function Delete(props) {
             },
           }
         );
+        if(response.ok){
         toast.success("Customer deleted successfully", {
           style: {
             borderRadius: "10px",
@@ -24,7 +25,7 @@ export function Delete(props) {
             color: "#fff",
           },
         });
-        console.log(response);
+      }
       } catch (error) {
         toast.error("Try again", {
           style: {
@@ -48,6 +49,7 @@ export function Delete(props) {
           },
         }
       );
+      if(response.ok){
       setRows((prevRows) => prevRows.filter((row) => row._id !== props.id));
       toast.success("Customer deleted successfully", {
         style: {
@@ -56,8 +58,7 @@ export function Delete(props) {
           color: "#fff",
         },
       });
-      const something = await response.json()
-      console.log(something)
+    }
     } catch (error) {
       toast.error("Try again", {
         style: {

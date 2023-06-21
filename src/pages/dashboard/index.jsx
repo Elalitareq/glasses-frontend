@@ -18,7 +18,7 @@ const Dashboard = () => {
           `${process.env.REACT_APP_URL}/sale/All`
         );
         const data = await response.json();
-        console.log(data.messages)
+   
         setLast(data.messages);
         setLoading(false)
        

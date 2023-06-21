@@ -20,6 +20,7 @@ const SalesPage = () => {
           `${process.env.REACT_APP_URL}/sale?page=${page}`
         );
         const data = await response.json();
+        console.log(data);
         setRows(data.message.docs);
         setPageCount(data.message.totalPages);
       } catch (error) {

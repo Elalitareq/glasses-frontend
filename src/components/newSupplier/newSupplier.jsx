@@ -9,7 +9,7 @@ import Loading from "../loading/loading";
 
 
 export default function NewSupplier(supplier) {
-  console.log(supplier)
+  
 
  
   return (

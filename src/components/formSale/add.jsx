@@ -10,14 +10,14 @@ export function AddSale() {
   const navigate = useNavigate();
   const [customer, setSelectedCustomerId] = useState("");
   const [selectedProducts, setSelectedProducts] = useState([]);
-const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
-    setLoading(true)
+    setLoading(true);
     event.preventDefault();
     const data = {
       products: selectedProducts.map((productId) => ({
         barcode: productId,
-        quantity: 1, // Assuming the default quantity is 1
+        quantity: 1,
       })),
       customer: customer,
     };
@@ -30,7 +30,7 @@ const [loading,setLoading]=useState(false)
         },
         body: JSON.stringify(data),
       });
-    
+
       if (response.ok) {
         const res = await response.json();
         toast.success("Sales created successfully", {
@@ -40,6 +40,7 @@ const [loading,setLoading]=useState(false)
             color: "#fff",
           },
         });
+      
         navigate({ pathname: `/invoice/${res.message._id}` });
       } else {
         setLoading(false);
@@ -61,18 +62,14 @@ const [loading,setLoading]=useState(false)
         },
       });
       console.log("Error sending data:", error);
-     
     }
-    
   };
 
   const handleSelectedProducts = (products) => {
     setSelectedProducts(products);
-    console.log(products);
   };
   const handleSelectedCustomer = (customerId) => {
     setSelectedCustomerId(customerId);
-    console.log(customer);
   };
   return (
     <>
@@ -125,13 +122,17 @@ const [loading,setLoading]=useState(false)
                 <div className="flex justify-between">
                   <div className="flex items-start"></div>
                 </div>
-                {!loading?(<button
-                  type="submit"
-                  className="w-full text-white bg-[#3e818b] hover:bg-[#3e818b] focus:ring-4 focus:outline-none focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Save
-                </button>):( <Loading/>)}
-               
+                {!loading ? (
+                  <button
+                    type="submit"
+                    className="w-full text-white bg-[#3e818b] hover:bg-[#3e818b] focus:ring-4 focus:outline-none focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <Loading />
+                )}
+
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300"></div>
               </form>
             </div>

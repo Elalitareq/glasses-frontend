@@ -50,6 +50,7 @@ const CustomersPage = () => {
 
   const columns = [
     { accessor: "company_name", header: "Company Name" },
+    { accessor: "phone", header: "Phone" },
     { accessor: "address", header: "Address" },
     { accessor: "email", header: "Email" },
     {

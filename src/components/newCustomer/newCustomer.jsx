@@ -5,27 +5,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+
 import Loading from "../loading/loading";
 
-export default function NewProduct() {
-  const [customer, setCustomer] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_URL}/customer/last`
-        );
-        const data = await response.json();
-        setCustomer(data.message);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error sending data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+export default function NewCustomer(customer) {
+ 
   return (
     <Card
       variant="gradient"
@@ -46,11 +30,11 @@ export default function NewProduct() {
         </Typography>
       </CardHeader>
       <CardBody className="p-0">
-        {loading ? (
+        {!customer ? (
           <Loading />
         ) : (
           <ul className="flex flex-col gap-4">
-            {customer.map((customer, i) => (
+            {customer.customer&&customer.customer.map((customer, i) => (
               <li className="flex items-center gap-4" key={i}>
                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                   <CheckIcon strokeWidth={2} className="h-3 w-3" />

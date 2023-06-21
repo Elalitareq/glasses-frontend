@@ -3,14 +3,16 @@ import { toast } from "react-hot-toast";
 import MyComboboxProduct from "./product";
 import Type from "./customer";
 import { useNavigate } from "react-router-dom";
+import Loading from "../loading/loading";
 export function AddSale() {
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
   const [customer, setSelectedCustomerId] = useState("");
   const [selectedProducts, setSelectedProducts] = useState([]);
-
+const [loading,setLoading]=useState(false)
   const handleSubmit = async (event) => {
+    setLoading(true)
     event.preventDefault();
     const data = {
       products: selectedProducts.map((productId) => ({
@@ -40,6 +42,7 @@ export function AddSale() {
         });
         navigate({ pathname: `/invoice/${res.message._id}` });
       } else {
+        setLoading(false);
         toast.error("Failed to create sales", {
           style: {
             borderRadius: "10px",
@@ -49,6 +52,7 @@ export function AddSale() {
         });
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Error occurred. Try again", {
         style: {
           borderRadius: "10px",
@@ -57,6 +61,7 @@ export function AddSale() {
         },
       });
       console.log("Error sending data:", error);
+     
     }
     
   };
@@ -120,12 +125,13 @@ export function AddSale() {
                 <div className="flex justify-between">
                   <div className="flex items-start"></div>
                 </div>
-                <button
+                {!loading?(<button
                   type="submit"
                   className="w-full text-white bg-gray-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Save
-                </button>
+                </button>):( <Loading/>)}
+               
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300"></div>
               </form>
             </div>

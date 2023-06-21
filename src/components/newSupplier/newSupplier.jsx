@@ -5,9 +5,9 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
 import Loading from "../loading/loading";
 
+<<<<<<< HEAD
 export default function NewSupplier() {
   const [supplier, setSupplier] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +28,12 @@ export default function NewSupplier() {
     };
     fetchData();
   }, []);
+=======
+export default function NewSupplier(supplier) {
+  console.log(supplier)
+
+ 
+>>>>>>> origin/new
   return (
     <Card
       variant="gradient"
@@ -48,12 +54,12 @@ export default function NewSupplier() {
         </Typography>
       </CardHeader>
       <CardBody className="p-0">
-        {loading ? (
+        {!supplier ? (
           <Loading />
         ) : (
           <ul className="flex flex-col gap-4">
             {supplier &&
-              supplier.map((supplier, i) => (
+              supplier.supplier.map((supplier, i) => (
                 <li className="flex items-center gap-4" key={i}>
                   <span className="rounded-full border border-white/20 bg-white/20 p-1">
                     <CheckIcon strokeWidth={2} className="h-3 w-3" />

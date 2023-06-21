@@ -4,11 +4,12 @@ import { Delete } from "../../components/delete/delete";
 import Loading from "../../components/loading/loading";
 
 function Invoice() {
-  
   const { saleId } = useParams();
   const [sale, setSale] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [updatedProducts, setUpdatedProducts] = useState([]);
+  const [isChanged, setIsChanged] = useState(false); // New state variable
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +20,7 @@ function Invoice() {
         const data = await response.json();
         console.log(data);
         setSale(data.message[0]);
+        setUpdatedProducts(data.message[0].products);
         setLoading(true);
       } catch (error) {
         console.log("Error sending data:", error);
@@ -26,6 +28,17 @@ function Invoice() {
     };
     fetchData();
   }, [saleId]);
+
+  useEffect(() => {
+    if (sale.products && sale.products.length > 0) {
+      let totalPrice = sale.products.reduce((sum, product) => {
+        return sum + product.quantity * product.product_id.selling_price;
+      }, 0);
+      totalPrice = totalPrice - (totalPrice * sale.discount) / 100;
+      setTotal(totalPrice);
+    }
+  }, [sale]);
+
   const handlePrint = () => {
     const printableDiv = document.getElementById("invoice");
     if (printableDiv) {
@@ -39,36 +52,34 @@ function Invoice() {
     }
   };
 
+  const handleQuantityChange = (productIndex, quantity) => {
+    const updatedProductsCopy = [...updatedProducts];
+    updatedProductsCopy[productIndex].quantity = quantity;
+    setUpdatedProducts(updatedProductsCopy);
+    setIsChanged(true); // Set the state to indicate changes
+  };
 
-  useEffect(() => {
-    if (sale.products && sale.products.length > 0) {
-      let totalPrice = sale.products.reduce((sum, product) => {
-        return sum + product.quantity * product.product_id.selling_price;
-
-      }, 0);
-      totalPrice = totalPrice-totalPrice*sale.discount/100;
-      setTotal(totalPrice);
-    }
-  }, [sale]);
-
-  const handleQuantityChange = async (productIndex, quantity) => {
-    const updatedProducts = [...sale.products];
-    updatedProducts[productIndex].quantity = quantity;
-    setSale((prevSale) => ({ ...prevSale, products: updatedProducts }));
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_URL}/sale/${saleId}`,
-        {
-          method: "Put",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ products: updatedProducts }),
-        }
-      );
-      console.log(response);
-    } catch (error) {
-      console.log("Error sending data:", error);
+  const handleSave = async () => {
+    if (isChanged) {
+      // Only send the request if there are changes
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_URL}/sale/${saleId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              products: updatedProducts,
+              discount: sale.discount,
+            }),
+          }
+        );
+        console.log(response);
+      } catch (error) {
+        console.log("Error sending data:", error);
+      }
     }
   };
 
@@ -82,26 +93,11 @@ function Invoice() {
       }, 0);
 
       const discountedPrice = totalPrice - totalPrice * (discount / 100);
-      console.log(discountedPrice)
       const updatedTotal = discountedPrice.toFixed(2);
       setTotal(updatedTotal);
     }
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_URL}/sale/${saleId}`,
-        {
-          method: "Put",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ discount: event.target.value }),
-        }
-      );
-      const res=await response.json()
-      console.log(res);
-    } catch (error) {
-      console.log("Error sending data:", error);
-    }
+
+    setIsChanged(true); // Set the state to indicate changes
   };
 
   if (loading) {
@@ -110,7 +106,10 @@ function Invoice() {
         <section className="title">
           <h1>Invoice</h1>
         </section>
-        <div className=" w-full flex items-center justify-center  text-gray-700" id="invoice">
+        <div
+          className=" w-full flex items-center justify-center  text-gray-700"
+          id="invoice"
+        >
           <div className="w-[95%] mx-auto bg-white shadow-lg">
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
@@ -156,8 +155,10 @@ function Invoice() {
                   </thead>
                   <tbody className="bg-white">
                     {sale &&
-                      sale.products&&sale.products.map((product, index) => (
-                        <tr key={index}
+                      sale.products &&
+                      sale.products.map((product, index) => (
+                        <tr
+                          key={index}
                           className={`px-4 py-3 border rounded-sm  font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900 ${
                             index % 2 === 0 ? " bg-gray-200" : " bg-white"
                           }`}
@@ -167,7 +168,7 @@ function Invoice() {
                           </td>
                           <td className="px-4 py-4">
                             <div className="text-sm text-gray-900">
-                              {product.product_id&&product.product_id.power}
+                              {product.product_id && product.product_id.power}
                             </div>
                           </td>
                           <td className="px-4 py-4">
@@ -186,7 +187,9 @@ function Invoice() {
                             ${product.product_id?.selling_price}
                           </td>
                           <td className="px-4 py-4">
-                            ${product.quantity*product.product_id?.selling_price}
+                            $
+                            {product.quantity *
+                              product.product_id?.selling_price}
                           </td>
                         </tr>
                       ))}
@@ -197,10 +200,10 @@ function Invoice() {
                       </td>
                       <td className="text-sm font-bold">
                         <input
-                        max={100}
-                        min={0}
+                          max={100}
+                          min={0}
                           type="number"
-                          value={sale.discount||0}
+                          value={sale.discount || 0}
                           onChange={handleDiscountChange}
                           className="text-sm font-bold w-10"
                         />
@@ -223,12 +226,18 @@ function Invoice() {
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="p-4">
               <div className="flex items-end justify-end space-x-3">
-              <button
+                <button
                   className="px-4 py-2 text-sm text-green-600 bg-green-100"
                   onClick={handlePrint}
                 >
                   Print
                 </button>
+             
+                  {isChanged ?    <button
+                  className={`px-4 py-2 text-sm text-green-600 bg-green-100 `}
+                  onClick={handleSave}
+                >save</button> : null}
+                {" "}
                 <div className="px-4 py-2 text-sm text-red-600 bg-red-100">
                   <Delete title="invoice" url="sale" id={saleId} />
                 </div>

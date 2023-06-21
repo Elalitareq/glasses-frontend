@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FcAddRow } from 'react-icons/fc'
-import { CiCircleRemove } from 'react-icons/ci'
+
 
 function MyComboboxProduct({ onSelectedProducts }) {
   const [inputs, setInputs] = useState([{ id: 0, value: "" }]);
@@ -12,7 +12,7 @@ function MyComboboxProduct({ onSelectedProducts }) {
     newInputs[index].value = event.target.value;
     setInputs(newInputs);
 
-    // Call onSelectedProducts with updated input values
+
     if (typeof onSelectedProducts === "function") {
       const selectedProducts = newInputs.map((input) => input.value);
       onSelectedProducts(selectedProducts);

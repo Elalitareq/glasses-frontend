@@ -8,6 +8,7 @@ import ReusableTable from "../../components/reusableTable";
 import { EditProduct } from "../../components/formProduct/edit";
 
 const Product = () => {
+  const [openCsv, setOpenCsv] = useState(false);
   const { id } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const type = queryParams.get("type");
@@ -66,8 +67,7 @@ const Product = () => {
               }
         })
         console.log(dataArray);
-
-        console.log(dataArray);
+        setData(dataArray)
         // console.log(results.data);
       },
     });
@@ -126,14 +126,8 @@ const Product = () => {
     <div>
       <section className="title ">
         <h1>{type}</h1>
-        <input type="file" onChange={handleFileUpload} />
-        {data.map((innerObject, index) => (
-          <div key={index}>
-            {Object.entries(innerObject).map(([key, value]) => (
-              <span key={key}>{innerObject.power} </span>
-            ))}
-          </div>
-        ))}
+        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300" onClick={e=>setOpenCsv(true)}> Upload CSV File</button>
+        
 
         <AddProduct product={id} onAddProduct={handleAddProduct} />
       </section>
@@ -143,6 +137,24 @@ const Product = () => {
         handlePageChange={handlePageChange}
         pageCount={pageCount}
       />
+      {openCsv&&<div className="fixed h-full w-full left-0 top-0 flex justify-center items-center bg-[#000000dd] z-50">
+        <button className="font-extrabold text-3xl  text-red-500 hover:text-red-700 transition-colors duration-300 right-10 top-10 absolute" onClick={e=>setOpenCsv(false)}>X</button>
+        <div className="w-full h-full ">
+          <div className="w-full flex justify-center py-5 text-white">
+
+        <input type="file" onChange={handleFileUpload} className="mx-auto "/>
+          </div>
+        <div className="w-3/4 h-[700px] overflow-y-scroll mx-auto bg-white flex flex-row flex-wrap px-10  py-4">
+
+        {data.map((oneData, index) => (
+          <div key={index} className="  border border-black px-6 py-3  w-1/4">
+            {oneData.power} : {oneData.barcode}
+          </div>
+        ))}
+        </div>
+        </div>
+
+      </div>}
     </div>
   );
 };

@@ -10,14 +10,14 @@ const ReusableTable = ({ columns, rows }) => {
             {columns.map((column) => (
               <th
                 key={column.accessor}
-                className=" border-r border-white bg-gray-700 px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider"
+                className=" border-r border-white bg-[#3e818b] px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider"
               >
                 {column.header}
               </th>
             ))}
           </tr>
         </thead>
-{rows.length!==0?( <tbody className=" bg-gray-700">
+{rows.length!==0?( <tbody className=" bg-[#3e818b]">
           {rows &&
             rows.map((row, index) => (
               <tr key={row._id} className="">

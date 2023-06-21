@@ -52,7 +52,7 @@ export default function Example({ newType }) {
             </CardBody>
             <CardFooter className="pt-0 flex justify-between w-full">
            
-                <Link to={`/product/${data._id}?type=${data.type}`}   className="bg-gray-700 p-3 inline-block rounded-md text-white" >View</Link>
+                <Link to={`/product/${data._id}?type=${data.type}`}   className="bg-[#3e818b] px-3 py-2 inline-block rounded-md text-white" >View</Link>
               
             </CardFooter>
           </Card>

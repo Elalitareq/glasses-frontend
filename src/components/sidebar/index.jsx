@@ -23,13 +23,13 @@ const Sidebar = () => {
   }, [isLoggingOut])
 
   return (
-    <div className='fixed left-4 top-4 bottom-4 h-[calc(100vh-2rem)] w-60 bg-gray-700 rounded-lg flex text-gray-700 flex-col px-4 py-4 shadow-lg'>
+    <div className='fixed left-4 top-4 bottom-4 h-[calc(100vh-2rem)] w-60 bg-[#3e818b] rounded-lg flex text-gray-700 flex-col px-4 py-4 shadow-lg'>
       <div className='w-full border-b mb-20 border-gray-500 min-h-[150px]'></div>
       {routes.map(route => (
         <Link
           key={route.to}
           to={route.to}
-          className={`w-full py-3 my-2 font-semibold rounded pl-4 transition-colors duration-300 hover:bg-gray-600 hover:text-white ${
+          className={`w-full py-3 my-2 font-semibold rounded pl-4 transition-colors duration-300 hover:bg-[#2d5d64] hover:text-white ${
             location.pathname === route.to ? 'bg-white text-black' : ' text-white'
           } `}
         >

@@ -133,21 +133,21 @@ function Invoice() {
             <div className="flex justify-center p-4">
               <div className="border-b border-gray-200 shadow p-4 w-[100%]">
                 <table className="w-[100%]">
-                  <thead className="bg-gray-700 text-white w-[100%]">
+                  <thead className="bg-[#3e818b] text-white w-[100%]">
                     <tr className="w-[100%]">
-                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider ">
+                      <th className=" border-r border-white bg-[#3e818b] px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider ">
                         #
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-[#3e818b] px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         Product
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-[#3e818b] px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         Quantity
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-[#3e818b] px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         Price
                       </th>
-                      <th className=" border-r border-white bg-gray-700 px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
+                      <th className=" border-r border-white bg-[#3e818b] px-4 py-2 text-left text-[20px] text-white uppercase tracking-wider">
                         total
                       </th>
                     </tr>

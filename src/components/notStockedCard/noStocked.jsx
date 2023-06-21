@@ -11,7 +11,7 @@ export default function NotStocked(stocked) {
   return (
     <Card
       variant="gradient"
-      className="bg-gray-700  text-white w-full max-w-[500px] p-8  rounded-lg"
+      className="bg-[#3e818b]  text-white w-full max-w-[500px] p-8  rounded-lg"
     >
       <CardHeader
         floated={false}

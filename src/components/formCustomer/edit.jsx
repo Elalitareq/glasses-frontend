@@ -87,7 +87,7 @@ export function EditForm({ id, updateRow }) {
               </svg>
               <span className="sr-only">Close modal</span>
             </button>
-            <div className="px-6 py-6 lg:px-8 bg-gray-700 text-white">
+            <div className="px-6 py-6 lg:px-8 bg-[#3e818b] text-white">
               <h3 className="mb-4 text-xl font-medium ">Edit Customer</h3>
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
@@ -143,7 +143,7 @@ export function EditForm({ id, updateRow }) {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-gray-700 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="w-full text-white bg-[#3e818b] hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Save
                 </button>

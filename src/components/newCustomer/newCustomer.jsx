@@ -13,7 +13,7 @@ export default function NewCustomer(customer) {
   return (
     <Card
       variant="gradient"
-      className="bg-gray-700 w-full max-w-[500px] text-white p-8 rounded-lg"
+      className="bg-[#3e818b] w-full max-w-[500px] text-white p-8 rounded-lg"
     >
       <CardHeader
         floated={false}

@@ -7,33 +7,11 @@ import {
 import { CheckIcon } from "@heroicons/react/24/outline";
 import Loading from "../loading/loading";
 
-<<<<<<< HEAD
-export default function NewSupplier() {
-  const [supplier, setSupplier] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log(`${process.env.REACT_APP_URL}/supplier/last`)
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_URL}/supplier/last`
-        );
-        const data = await response.json();
-        console.log(data)
-        setSupplier(data.message);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error sending data:", error);
-      }
-    };
-    fetchData();
-  }, []);
-=======
+
 export default function NewSupplier(supplier) {
   console.log(supplier)
 
  
->>>>>>> origin/new
   return (
     <Card
       variant="gradient"

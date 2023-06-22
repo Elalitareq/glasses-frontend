@@ -72,10 +72,10 @@ export function AddProduct({ product, onAddProduct }) {
           aria-hidden="true"
           className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50  "
         >
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-70">
+          <div className="relative bg-white rounded-lg shadow text-black">
             <button
               type="button"
-              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+              className="absolute top-3 right-2.5 text-red-400 hover:text-red-600 transition-colors duration-300"
               data-modal-hide="authentication-modal"
               onClick={() => setOpen(false)}
             >
@@ -94,13 +94,13 @@ export function AddProduct({ product, onAddProduct }) {
               </svg>
               <span className="sr-only">Close modal</span>
             </button>
-            <div className="px-6 py-6 lg:px-8 bg-[#3e818b] text-white">
+            <div className="px-6 py-6 lg:px-8 bg-white text-black rounded">
               <h3 className="mb-4 text-xl font-medium ">Add New Product</h3>
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium "
+                    className="block mb-3  font-medium "
                   >
                     Barcode
                   </label>
@@ -109,7 +109,7 @@ export function AddProduct({ product, onAddProduct }) {
                     name="bar_code"
                     onChange={handleInputChange}
                     id="email"
-                    className="bg-gray-50 border border-gray-700 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    className="w-full px-4 py-2 focus:outline-none bg-[#efefef] rounded"
                     placeholder="3003000000"
                     required
                   />
@@ -128,7 +128,7 @@ export function AddProduct({ product, onAddProduct }) {
                     onChange={handleInputChange}
                     id="password"
                     placeholder="+3.50-0.25"
-                    className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    className="w-full px-4 py-2 focus:outline-none bg-[#efefef] rounded"
                     required
                   />
                 </div>
@@ -145,7 +145,7 @@ export function AddProduct({ product, onAddProduct }) {
                     onChange={handleInputChange}
                     id="password"
                     placeholder="20$"
-                    className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    className="w-full px-4 py-2 focus:outline-none bg-[#efefef] rounded"
                     required
                   />
                 </div>
@@ -162,7 +162,7 @@ export function AddProduct({ product, onAddProduct }) {
                     onChange={handleInputChange}
                     id="password"
                     placeholder="15$"
-                    className="bg-gray-50 border mt-3 border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    className="w-full px-4 py-2 focus:outline-none bg-[#efefef] rounded"
                     required
                   />
                 </div>
@@ -179,7 +179,7 @@ export function AddProduct({ product, onAddProduct }) {
                     onChange={handleInputChange}
                     id="password"
                     placeholder="10"
-                    className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-gray-700 focus:border-gray-700 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    className="w-full px-4 py-2 focus:outline-none bg-[#efefef] rounded"
                     required
                   />
                 </div>
@@ -188,7 +188,7 @@ export function AddProduct({ product, onAddProduct }) {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-[#3e818b] hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="px-4 py-2 w-full bg-[#3e818b] hover:bg-[#336b74] transition-colors duration-300 text-white font-semibold rounded"
                 >
                   Save
                 </button>

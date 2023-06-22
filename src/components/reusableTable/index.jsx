@@ -10,7 +10,7 @@ const ReusableTable = ({ columns, rows }) => {
             {columns.map((column) => (
               <th
                 key={column.accessor}
-                className="border-r border-white bg-[#444] px-6 py-3 text-left text-[20px] text-white uppercase tracking-wider"
+                className="border-r border-white bg-[#9cc2d4] px-6 py-3 text-left text-[20px] text-[#48545a] uppercase tracking-wider"
               >
                 {column.header}
               </th>
@@ -40,7 +40,7 @@ const ReusableTable = ({ columns, rows }) => {
               </tr>
             ))
           ) : (
-            <tr>
+            <tr className="bg-white">
               <td colSpan={columns.length}>
                 <Loading />
               </td>

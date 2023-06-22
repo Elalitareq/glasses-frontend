@@ -74,7 +74,7 @@ const Product = () => {
             const barcode = oneData[key];
             const power =
               parseFloat(key) >= 0
-                ? `${powerValue}+${key}`
+                ? `${powerValue}-${key}`
                 : `${powerValue}${key}`;
   
                 dataArray.push({ power, barcode });

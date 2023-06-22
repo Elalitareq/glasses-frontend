@@ -10,6 +10,8 @@ import { toast } from "react-hot-toast";
 
 const Product = () => {
   const [openCsv, setOpenCsv] = useState(false);
+  const [quantity,setQuantity] = useState([]);
+  const [openQuantityCsv, setOpenQuantityCsv] = useState(false);
   const { id } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const type = queryParams.get("type");
@@ -45,7 +47,6 @@ const Product = () => {
     });
   };
   const uploadData = async(e)=>{
-    console.log(data)
     const response = await fetch(
       `${process.env.REACT_APP_URL}/productInfo/many`,{
         headers: {
@@ -58,7 +59,21 @@ const Product = () => {
     const res=await response.json()
     toast.success("files successfully uploaded")
     setOpenCsv(false)
+  }
+  const handleUpdateQuantity = async(e)=>{
+    const response = await fetch(
+      `${process.env.REACT_APP_URL}/productInfo/many`,{
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: 'PATCH',
+        body: JSON.stringify({quantity,product:id})
+      }
+    )
+    const res=await response.json()
     console.log(res)
+    toast.success("files successfully uploaded")
+    setOpenCsv(false)
   }
 
   const handleFileUpload = (e) => {
@@ -66,7 +81,6 @@ const Product = () => {
     Papa.parse(file, {
       header: true,
       complete: (results) => {
-        console.log(results.data)
         const dataArray = [];
         results.data.forEach((oneData)=>{
 
@@ -83,10 +97,20 @@ const Product = () => {
                 dataArray.push({ power, barcode });
               }
         })
-        console.log(dataArray);
         setData(dataArray)
         
         // console.log(results.data);
+      },
+    });
+  };
+  const handleQuantityAndPriceUpload = (e) => {
+    const file = e.target.files[0];
+    Papa.parse(file, {
+      header: true,
+      complete: (results) => {
+        console.log(results.data)
+        setQuantity(results.data)
+
       },
     });
   };
@@ -144,7 +168,8 @@ const Product = () => {
     <div>
       <section className="title ">
         <h1>{type}</h1>
-        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300" onClick={e=>setOpenCsv(true)}> Upload CSV File</button>
+        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300" onClick={e=>setOpenQuantityCsv(true)}> Upload Quantity File</button>
+        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300" onClick={e=>setOpenCsv(true)}> Upload Barcode File</button>
         
 
         <AddProduct product={id} onAddProduct={handleAddProduct} />
@@ -155,6 +180,29 @@ const Product = () => {
         handlePageChange={handlePageChange}
         pageCount={pageCount}
       />
+      
+      {openQuantityCsv&&<div className="fixed h-full w-full left-0 top-0 flex justify-center items-center bg-[#000000dd] z-50">
+        <button className="font-extrabold text-3xl  text-red-500 hover:text-red-700 transition-colors duration-300 right-10 top-10 absolute" onClick={e=>setOpenQuantityCsv(false)}>X</button>
+        <div className="w-full h-full ">
+          <div className="w-full flex justify-center py-5 text-white">
+
+        <input type="file" onChange={handleQuantityAndPriceUpload} className="mx-auto "/>
+          </div>
+        <div className="w-3/4 h-[700px] overflow-y-scroll mx-auto bg-white flex flex-row flex-wrap px-10  py-4">
+
+        {quantity.map((oneData, index) => (
+          <div key={index} className="  border border-black px-6 py-3  w-1/4">
+            {oneData.power} : {oneData.quantity}:{oneData.price}
+          </div>
+        ))}
+        </div>
+        <div className="flex justify-center py-4">
+
+        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300 mx-auto" onClick={handleUpdateQuantity}>Upload Products</button>
+        </div>
+        </div>
+
+      </div>}
       {openCsv&&<div className="fixed h-full w-full left-0 top-0 flex justify-center items-center bg-[#000000dd] z-50">
         <button className="font-extrabold text-3xl  text-red-500 hover:text-red-700 transition-colors duration-300 right-10 top-10 absolute" onClick={e=>setOpenCsv(false)}>X</button>
         <div className="w-full h-full ">

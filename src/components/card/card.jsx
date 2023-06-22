@@ -35,24 +35,24 @@ export default function Example({ newType }) {
   }, [newType]);
 
   return (
-    <div className="cardProduct">
+    <div className="flex gap-4 flex-row flex-wrap">
       {loading ? (
         <Loading />
       ) : type.length > 0 ? (
         type.map((data) => (
-          <Card key={data._id} className="mt-6 w-96 relative">
+          <Card key={data._id} className="mt-6 w-96 relative rounded bg-[#e9f7fa]">
             <div className="absolute top-4 right-4 text-xl text-red-400 hover:text-red-500 transition-all duration-300">
               <Delete setRows={setType} url="product" id={data._id} />
             </div>
 
             <CardBody>
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                Type: {data.type}
+              <Typography variant="h5" color="blue-gray" className="mb-2 uppercase tracking-wider">
+                {data.type}
               </Typography>
             </CardBody>
             <CardFooter className="pt-0 flex justify-between w-full">
            
-                <Link to={`/product/${data._id}?type=${data.type}`}   className="bg-[#3e818b] px-3 py-2 inline-block rounded-md text-white" >View</Link>
+                <Link to={`/product/${data._id}?type=${data.type}`}   className="bg-[#3e818b] px-3 py-2 inline-block rounded text-white" >View</Link>
               
             </CardFooter>
           </Card>

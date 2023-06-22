@@ -13,7 +13,7 @@ export default function NewCustomer(customer) {
   return (
     <Card
       variant="gradient"
-      className="bg-[#3e818b] w-full max-w-[500px] text-white p-8 rounded-lg"
+      className="bg-[#e9f7fa]  text-black w-full max-w-[400px] p-4 rounded-lg"
     >
       <CardHeader
         floated={false}
@@ -24,12 +24,12 @@ export default function NewCustomer(customer) {
         <Typography
           variant="h1"
           color="white"
-          className="mt-4 flex justify-center gap-1 text-7xl font-normal"
+          className="flex justify-center text-black gap-1 text-7xl font-normal"
         >
-          <span className="mt-2 text-2xl">New Customer</span>
+          <span className="text-2xl uppercase font-semibold">New Customer</span>
         </Typography>
       </CardHeader>
-      <CardBody className="p-0">
+      <CardBody className="p-0  max-h-[300px] overflow-y-scroll ">
         {!customer ? (
           <Loading />
         ) : (

@@ -59,7 +59,7 @@ export function AddProduct({ product, onAddProduct }) {
     <>
       <button
         onClick={e=>setOpen(true)}
-        className="block text-white bg-[#3e818b] hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-medium px-4 py-3 text-center transition-colors duration-300"
+        className="px-3 py-2 bg-[#3e818b] rounded text-white hover:bg-[#2e6068] transition-colors duration-300"
         type="button"
       >
         Add

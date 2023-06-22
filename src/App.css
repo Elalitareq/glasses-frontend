@@ -6,7 +6,9 @@
 }
 .title h1{
  font-size: 40px;  
- color:#374151
+ font-weight: bold;
+
+ color:white
 }
 .cardProduct{
     display: flex;

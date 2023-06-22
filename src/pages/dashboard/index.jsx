@@ -35,11 +35,11 @@ const Dashboard = () => {
       <section className="title">
         <h1>Dashboard</h1>
       </section>
-      <section className="grid grid-cols-3 gap-4">
+      <section className="grid grid-cols-4 gap-4">
         {last?(<> <NotStocked stocked={last[0]}/>
         <NewCustomer customer={last[3]}/>
 
-        <NewSupplier supplier={last[4]}/>
+        {/* <NewSupplier supplier={last[4]}/> */}
       <NewProduct product={last[1]}/></>):(<Loading/>)}
         
       </section>

@@ -11,27 +11,27 @@ export default function NotStocked(stocked) {
   return (
     <Card
       variant="gradient"
-      className="bg-[#3e818b]  text-white w-full max-w-[500px] p-8  rounded-lg"
+      className="bg-[#e9f7fa]  text-black w-full max-w-[400px] p-4 rounded-lg"
     >
       <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
-        className="m-0 mb-3 rounded-none border-b border-white/10 pb-3 text-center"
+        className="m-0 mb-3 rounded-none border-b border-white/10 pb-3 text-center "
       >
         <Typography
           variant="h1"
           color="white"
-          className="mt-6 flex justify-center gap-1 text-7xl font-normal"
+          className=" flex justify-center gap-1 text-7xl font-normal text-black"
         >
-          <span className="mt-2 text-2xl">Product out of the stock</span>
+          <span className="text-2xl uppercase font-semibold">out of the stock</span>
         </Typography>
       </CardHeader>
-      <CardBody className="p-0">
+      <CardBody className="p-0  max-h-[300px] overflow-y-scroll ">
         {!stocked ? (
           <Loading />
         ) : (
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-4 ">
             {stocked &&
               stocked.stocked.map((supplier, i) => (
                 <li className="flex items-center gap-4" key={i}>

@@ -12,7 +12,7 @@ import {
     return (
       <Card
         variant="gradient"
-        className="bg-[#3e818b]  text-white w-full max-w-[500px] p-8  rounded-lg"
+      className="bg-[#e9f7fa]  text-black w-full max-w-[400px] p-4 rounded-lg"
       >
         <CardHeader
           floated={false}
@@ -23,12 +23,12 @@ import {
           <Typography
             variant="h1"
             color="white"
-            className="mt-6 flex justify-center gap-1 text-7xl font-normal"
+            className="flex justify-center gap-1 text-7xl font-normal text-black"
           >
-            <span className="mt-2 text-2xl">New Product</span>
+            <span className="text-2xl uppercase font-semibold">New Product</span>
           </Typography>
         </CardHeader>
-        <CardBody className="p-0">
+      <CardBody className="p-0  max-h-[300px] overflow-y-scroll ">
           {!product ? (
             <Loading />
           ) : (

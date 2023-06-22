@@ -15,7 +15,8 @@ export default function NewSupplier(supplier) {
   return (
     <Card
       variant="gradient"
-      className="bg-[#3e818b]  text-white w-full max-w-[500px] p-8  rounded-lg"
+      className="bg-[#e9f7fa]  text-black w-full max-w-[400px] px-8 py-4 rounded-lg"
+
     >
       <CardHeader
         floated={false}
@@ -26,12 +27,12 @@ export default function NewSupplier(supplier) {
         <Typography
           variant="h1"
           color="white"
-          className="mt-6 flex justify-center gap-1 text-7xl font-normal"
+          className="mt-6 flex justify-venter gap-1 text-7xl font-normal text-black "
         >
-          <span className="mt-2 text-2xl">New Supplier</span>
+          <span className="uppercase text-2xl font-semibold">New Supplier</span>
         </Typography>
       </CardHeader>
-      <CardBody className="p-0">
+      <CardBody className="p-0  max-h-[300px] overflow-y-scroll ">
         {!supplier ? (
           <Loading />
         ) : (

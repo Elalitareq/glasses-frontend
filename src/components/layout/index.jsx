@@ -5,7 +5,7 @@ const Layout = ({children}) => {
   return (
     <>
     <Sidebar/>
-    <main className='ml-64 px-4 py-4 max-h-screen overflow-y-scroll '>{children}</main>
+    <main className='left-[17rem] bottom-4 right-4 top-4 fixed overflow-y-scroll border border-[#3e818b] rounded-lg shadow-lg px-4 bg-[#a4c1c9]'>{children}</main>
     {/* <footer>footer</footer> */}
     </>
   )

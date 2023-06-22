@@ -4,13 +4,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 function Button2({ content, onClick, active, disabled }) {
   return (
     <button
-      className={`flex flex-col cursor-pointer items-center justify-center w-9 h-9 shadow-[0_4px_10px_rgba(0,0,0,0.03)] text-sm font-normal transition-colors rounded-lg
-      ${active ? "bg-[#3e818b] text-white" : "text-gray-700"}
-      ${
-        !disabled
-          ? "bg-white hover:bg-[#3e818b] hover:text-white"
-          : "text-gray-300 bg-white cursor-not-allowed"
-      }
+      className={`flex flex-col cursor-pointer items-center justify-center w-9 h-9 shadow-[0_4px_10px_rgba(0,0,0,0.03)] text-sm font-normal transition-all rounded-lg
+      ${active ? "bg-[#3e6c74] text-white" : "text-gray-700 bg-white"}
+  
       `}
       onClick={onClick}
       disabled={disabled}

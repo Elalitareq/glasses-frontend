@@ -109,7 +109,7 @@ toast.success("Product edited successfully",{style: {
                   Diameter
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="diameter"
                   onChange={handleInputChange}
                   id="password"
@@ -126,7 +126,7 @@ toast.success("Product edited successfully",{style: {
                   Power
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="power"
                   onChange={handleInputChange}
                   id="password"
@@ -143,7 +143,7 @@ toast.success("Product edited successfully",{style: {
                   Selling Price
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="selling_price"
                   onChange={handleInputChange}
                   id="password"
@@ -160,7 +160,7 @@ toast.success("Product edited successfully",{style: {
                  Buying Price
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="buying_price"
                   onChange={handleInputChange}
                   id="password"

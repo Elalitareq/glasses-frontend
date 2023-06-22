@@ -24,7 +24,7 @@ const Sidebar = () => {
 
   return (
     <div className='fixed left-4 top-4 bottom-4 h-[calc(100vh-2rem)] w-60 bg-[#3e818b] rounded-lg flex text-gray-700 flex-col px-4 py-4 shadow-lg'>
-      <div className='w-full border-b mb-20 border-gray-500 min-h-[150px]'></div>
+      <div className='w-full border-b mb-5 border-gray-500 min-h-[150px]'></div>
       {routes.map(route => (
         <Link
           key={route.to}

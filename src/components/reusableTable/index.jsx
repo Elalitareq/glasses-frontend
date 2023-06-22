@@ -24,7 +24,7 @@ const ReusableTable = ({ columns, rows }) => {
                 {columns.map((column) => (
                   <td
                     key={column.accessor}
-                    className={`px-6 py-5 border rounded-sm font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900`}
+                    className={`px-4 py-3 border rounded-sm font-semibold whitespace-nowrap text-sm border-gray-300 text-gray-900`}
                   >
                     {column.accessor === "isStocked" && column.renderCell
                       ? column.renderCell({ row })

@@ -6,6 +6,7 @@ import Papa from "papaparse";
 import { PaginationNav1Presentation } from "../../components/pagination/pagination";
 import ReusableTable from "../../components/reusableTable";
 import { EditProduct } from "../../components/formProduct/edit";
+import { toast } from "react-hot-toast";
 
 const Product = () => {
   const [openCsv, setOpenCsv] = useState(false);
@@ -55,6 +56,8 @@ const Product = () => {
       }
     )
     const res=await response.json()
+    toast.success("files successfully uploaded")
+    setOpenCsv(false)
     console.log(res)
   }
 
@@ -82,6 +85,7 @@ const Product = () => {
         })
         console.log(dataArray);
         setData(dataArray)
+        
         // console.log(results.data);
       },
     });

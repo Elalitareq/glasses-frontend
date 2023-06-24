@@ -41,7 +41,7 @@ export function Delete(props) {
     
     try {
       const response = await fetch(
-        `http://localhost:8000/api/${props.url}/${props.id}`,
+        `${process.env.REACT_APP_URL}/${props.url}/${props.id}`,
         {
           method: "Delete",
           headers: {

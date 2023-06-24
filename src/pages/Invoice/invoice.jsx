@@ -33,6 +33,7 @@ const [changeLoading,setChangeLoading]=useState(false)
     if(sale){
     if (sale.products && sale.products.length > 0) {
       let totalPrice = sale.products.reduce((sum, product) => {
+        console.log(product.quantity)
         return sum + product.quantity * product.price;
       }, 0);
       totalPrice = totalPrice - (totalPrice * sale.discount) / 100;

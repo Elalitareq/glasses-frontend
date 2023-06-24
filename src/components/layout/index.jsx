@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Sidebar from '../sidebar'
-import { FiArrowRight, FiChevronRight } from 'react-icons/fi'
+import {  FiChevronRight } from 'react-icons/fi'
 
 const Layout = ({children}) => {
   const [open,setOpen]=useState(false)

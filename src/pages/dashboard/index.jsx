@@ -5,7 +5,7 @@ import Loading from "../../components/loading/loading";
 
 import NewCustomer from "../../components/newCustomer/newCustomer";
 import NewProduct from "../../components/newProducts/newProducts";
-import NewSupplier from "../../components/newSupplier/newSupplier";
+// import NewSupplier from "../../components/newSupplier/newSupplier";
 import NotStocked from "../../components/notStockedCard/noStocked";
 
 const Dashboard = () => {

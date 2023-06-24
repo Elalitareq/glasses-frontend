@@ -41,6 +41,7 @@ export default function NotStocked(stocked) {
                   <Typography className="font-normal">
                     Barcode: {supplier.bar_code}
                     {"   "}Power: {supplier.power}
+                    {"   "}Type: {supplier.product.type}
                   </Typography>
                 </li>
               ))}

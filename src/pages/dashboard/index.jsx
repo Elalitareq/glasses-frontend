@@ -35,7 +35,7 @@ const Dashboard = () => {
       <section className="title">
         <h1>Dashboard</h1>
       </section>
-      <section className="grid grid-cols-4 gap-4">
+      <section className="grid grid-cols-1 lg:grid-cols-4  gap-4">
         {last?(<> <NotStocked stocked={last[0]}/>
         <NewCustomer customer={last[3]}/>
 

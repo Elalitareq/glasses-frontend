@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import TestPage from "./pages/test";
 import Product from "./pages/product";
 import Invoice from "./pages/Invoice/invoice";
+import Admin from "./pages/admin/admin";
 
 function App() {
   return (
@@ -38,7 +39,9 @@ function App() {
                 </RequireAuth>
               }
             >
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard/>} />
+              <Route path="/admin" element={<Admin/>} />
+
               <Route path="/customers" element={<CustomersPage />} />
               <Route path="/suppliers" element={<SupliersPage />} />
               <Route path="/users" element={<UserPage />} />

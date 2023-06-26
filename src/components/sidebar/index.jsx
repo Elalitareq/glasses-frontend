@@ -4,10 +4,11 @@ import { useLocation, Link } from 'react-router-dom'
 
 const routes = [
   { to: "/", label: "Dashboard" },
+  { to: "/admin", label: "admin" },
   { to: "/customers", label: "Customers" },
   { to: "/products", label: "Products" },
   { to: "/sales", label: "Sales" },
-  // { to: "/suppliers", label: "Suppliers" },
+
 ]
 
 const Sidebar = ({open}) => {

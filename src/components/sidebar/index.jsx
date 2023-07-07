@@ -7,6 +7,7 @@ const routes = [
   { to: "/customers", label: "Customers" },
   { to: "/products", label: "Products" },
   { to: "/sales", label: "Sales" },
+  { to: "/uncounted", label: "Uncounted" },
   { to: "/admin", label: "Admin" },
 
 ]

@@ -59,7 +59,7 @@ const SalesPage = () => {
       accessor: "customer",
       header: "Customer",
       renderCell: (params) => {
-        return params.row.customer.company_name;
+        return params.row.customer;
       },
     },
 

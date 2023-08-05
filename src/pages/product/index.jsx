@@ -10,7 +10,9 @@ import { toast } from "react-hot-toast";
 
 const Product = () => {
   const [openCsv, setOpenCsv] = useState(false);
-  const [quantity,setQuantity] = useState([]);
+  const [quantity, setQuantity] = useState([]);
+  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
   const [openQuantityCsv, setOpenQuantityCsv] = useState(false);
   const { id } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
@@ -23,7 +25,7 @@ const Product = () => {
     const fetchData = async (page) => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_URL}/productInfo/${id}?page=${page}`
+          `${process.env.REACT_APP_URL}/productInfo/${id}?page=${page}&query=${search}`
         );
         const data = await response.json();
         setRows(data.message.docs);
@@ -34,7 +36,7 @@ const Product = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage, id]);
+  }, [currentPage, id, search]);
   const updateRow = (updatedRow) => {
     setRows((prevRows) => {
       const updatedRows = prevRows.map((row) => {
@@ -46,35 +48,37 @@ const Product = () => {
       return updatedRows;
     });
   };
-  const uploadData = async(e)=>{
+  const uploadData = async (e) => {
     const response = await fetch(
-      `${process.env.REACT_APP_URL}/productInfo/many`,{
+      `${process.env.REACT_APP_URL}/productInfo/many`,
+      {
         headers: {
           "Content-Type": "application/json",
         },
-        method: 'POST',
-        body: JSON.stringify({dataArray:data,product:id})
+        method: "POST",
+        body: JSON.stringify({ dataArray: data, product: id }),
       }
-    )
-    const res=await response.json()
-    toast.success("files successfully uploaded")
-    setOpenCsv(false)
-  }
-  const handleUpdateQuantity = async(e)=>{
+    );
+    const res = await response.json();
+    toast.success("files successfully uploaded");
+    setOpenCsv(false);
+  };
+  const handleUpdateQuantity = async (e) => {
     const response = await fetch(
-      `${process.env.REACT_APP_URL}/productInfo/many`,{
+      `${process.env.REACT_APP_URL}/productInfo/many`,
+      {
         headers: {
           "Content-Type": "application/json",
         },
-        method: 'PATCH',
-        body: JSON.stringify({quantity,product:id})
+        method: "PATCH",
+        body: JSON.stringify({ quantity, product: id }),
       }
-    )
-    const res=await response.json()
-    console.log(res)
-    toast.success("files successfully uploaded")
-    setOpenCsv(false)
-  }
+    );
+    const res = await response.json();
+    console.log(res);
+    toast.success("files successfully uploaded");
+    setOpenCsv(false);
+  };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -82,23 +86,20 @@ const Product = () => {
       header: true,
       complete: (results) => {
         const dataArray = [];
-        results.data.forEach((oneData)=>{
-
+        results.data.forEach((oneData) => {
           const powerValue = oneData.power;
           delete oneData.power;
-          
+
           for (const key in oneData) {
             const barcode = oneData[key];
             const power =
-              parseFloat(key) > 0
-                ? `${powerValue}-${key}`
-                : `${powerValue}`;
-  
-                dataArray.push({ power, barcode });
-              }
-        })
-        setData(dataArray)
-        
+              parseFloat(key) > 0 ? `${powerValue}-${key}` : `${powerValue}`;
+
+            dataArray.push({ power, barcode });
+          }
+        });
+        setData(dataArray);
+
         // console.log(results.data);
       },
     });
@@ -108,9 +109,8 @@ const Product = () => {
     Papa.parse(file, {
       header: true,
       complete: (results) => {
-        console.log(results.data)
-        setQuantity(results.data)
-
+        console.log(results.data);
+        setQuantity(results.data);
       },
     });
   };
@@ -164,67 +164,121 @@ const Product = () => {
       },
     },
   ];
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearch(query);
+  };
   return (
     <div>
       <section className="title ">
         <h1>{type}</h1>
-        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300" onClick={e=>setOpenQuantityCsv(true)}> Upload Quantity File</button>
-        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300" onClick={e=>setOpenCsv(true)}> Upload Barcode File</button>
-        
+        <button
+          className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300"
+          onClick={(e) => setOpenQuantityCsv(true)}
+        >
+          {" "}
+          Upload Quantity File
+        </button>
+        <button
+          className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300"
+          onClick={(e) => setOpenCsv(true)}
+        >
+          {" "}
+          Upload Barcode File
+        </button>
 
         <AddProduct product={id} onAddProduct={handleAddProduct} />
       </section>
+      <form onSubmit={handleSearch} className="">
+        <input
+          className="my-4 px-4 py -3 rounded-md mr-2"
+          onChange={(e) => setQuery(e.target.value)}
+        />{" "}
+        <button type="submit" className="bg-white px-4  rounded">
+          Search
+        </button>
+      </form>
       <ReusableTable columns={columns} rows={rows} />
       <PaginationNav1Presentation
         currentPage={currentPage}
         handlePageChange={handlePageChange}
         pageCount={pageCount}
       />
-      
-      {openQuantityCsv&&<div className="fixed h-full w-full left-0 top-0 flex justify-center items-center bg-[#000000dd] z-50">
-        <button className="font-extrabold text-3xl  text-red-500 hover:text-red-700 transition-colors duration-300 right-10 top-10 absolute" onClick={e=>setOpenQuantityCsv(false)}>X</button>
-        <div className="w-full h-full ">
-          <div className="w-full flex justify-center py-5 text-white">
 
-        <input type="file" onChange={handleQuantityAndPriceUpload} className="mx-auto "/>
+      {openQuantityCsv && (
+        <div className="fixed h-full w-full left-0 top-0 flex justify-center items-center bg-[#000000dd] z-50">
+          <button
+            className="font-extrabold text-3xl  text-red-500 hover:text-red-700 transition-colors duration-300 right-10 top-10 absolute"
+            onClick={(e) => setOpenQuantityCsv(false)}
+          >
+            X
+          </button>
+          <div className="w-full h-full ">
+            <div className="w-full flex justify-center py-5 text-white">
+              <input
+                type="file"
+                onChange={handleQuantityAndPriceUpload}
+                className="mx-auto "
+              />
+            </div>
+            <div className="w-3/4 h-[700px] overflow-y-scroll mx-auto bg-white flex flex-row flex-wrap px-10  py-4">
+              {quantity.map((oneData, index) => (
+                <div
+                  key={index}
+                  className="  border border-black px-6 py-3  w-1/4"
+                >
+                  {oneData.power} : {oneData.quantity}:{oneData.price}
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center py-4">
+              <button
+                className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300 mx-auto"
+                onClick={handleUpdateQuantity}
+              >
+                Upload Products
+              </button>
+            </div>
           </div>
-        <div className="w-3/4 h-[700px] overflow-y-scroll mx-auto bg-white flex flex-row flex-wrap px-10  py-4">
-
-        {quantity.map((oneData, index) => (
-          <div key={index} className="  border border-black px-6 py-3  w-1/4">
-            {oneData.power} : {oneData.quantity}:{oneData.price}
+        </div>
+      )}
+      {openCsv && (
+        <div className="fixed h-full w-full left-0 top-0 flex justify-center items-center bg-[#000000dd] z-50">
+          <button
+            className="font-extrabold text-3xl  text-red-500 hover:text-red-700 transition-colors duration-300 right-10 top-10 absolute"
+            onClick={(e) => setOpenCsv(false)}
+          >
+            X
+          </button>
+          <div className="w-full h-full ">
+            <div className="w-full flex justify-center py-5 text-white">
+              <input
+                type="file"
+                onChange={handleFileUpload}
+                className="mx-auto "
+              />
+            </div>
+            <div className="w-3/4 h-[700px] overflow-y-scroll mx-auto bg-white flex flex-row flex-wrap px-10  py-4">
+              {data.map((oneData, index) => (
+                <div
+                  key={index}
+                  className="  border border-black px-6 py-3  w-1/4"
+                >
+                  {oneData.power} : {oneData.barcode}
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center py-4">
+              <button
+                className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300 mx-auto"
+                onClick={uploadData}
+              >
+                Upload Products
+              </button>
+            </div>
           </div>
-        ))}
         </div>
-        <div className="flex justify-center py-4">
-
-        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300 mx-auto" onClick={handleUpdateQuantity}>Upload Products</button>
-        </div>
-        </div>
-
-      </div>}
-      {openCsv&&<div className="fixed h-full w-full left-0 top-0 flex justify-center items-center bg-[#000000dd] z-50">
-        <button className="font-extrabold text-3xl  text-red-500 hover:text-red-700 transition-colors duration-300 right-10 top-10 absolute" onClick={e=>setOpenCsv(false)}>X</button>
-        <div className="w-full h-full ">
-          <div className="w-full flex justify-center py-5 text-white">
-
-        <input type="file" onChange={handleFileUpload} className="mx-auto "/>
-          </div>
-        <div className="w-3/4 h-[700px] overflow-y-scroll mx-auto bg-white flex flex-row flex-wrap px-10  py-4">
-
-        {data.map((oneData, index) => (
-          <div key={index} className="  border border-black px-6 py-3  w-1/4">
-            {oneData.power} : {oneData.barcode}
-          </div>
-        ))}
-        </div>
-        <div className="flex justify-center py-4">
-
-        <button className="rounded bg-green-400 text-white px-4 py-3 hover:bg-green-600  transition-colors duration-300 mx-auto" onClick={uploadData}>Upload Products</button>
-        </div>
-        </div>
-
-      </div>}
+      )}
     </div>
   );
 };
